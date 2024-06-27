@@ -29,7 +29,12 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(RegisterAction.registerUser());
+    this.store.dispatch(
+      RegisterAction.registerUser({
+        email: 'mail@g.com',
+        password: 'password22',
+      })
+    );
   }
 
   handleSubmit() {

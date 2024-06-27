@@ -1,10 +1,13 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { RegisterUserStateInterface } from '../../models/loggedUser';
+import {
+  RegisterUser,
+  RegisterUserStateInterface,
+} from '../../models/loggedUser';
 
 export const RegisterAction = createActionGroup({
   source: 'Register',
   events: {
-    'Register User': emptyProps(),
+    'Register User': props<RegisterUser>(),
     'Registration Success': props<RegisterUserStateInterface>(),
     'Registration Error': props<{ error: string }>(),
   },
