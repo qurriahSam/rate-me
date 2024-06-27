@@ -18,7 +18,7 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { registerReducer } from './store/auth/registerReducer';
+import { registerReducer } from './store/auth/register-reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
