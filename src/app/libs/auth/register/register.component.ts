@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   registerForm = new FormGroup({
     email: new FormControl(''),
     username: new FormControl(''),
@@ -28,16 +28,14 @@ export class RegisterComponent implements OnInit {
     this.isLoading$ = store.pipe(select(registerIsLoadingSelector));
   }
 
-  ngOnInit(): void {
+  handleSubmit() {
+    console.log(this.registerForm.value);
+
     this.store.dispatch(
       RegisterAction.registerUser({
-        email: 'mail@g.com',
+        email: 'mail2@g.com',
         password: 'password22',
       })
     );
-  }
-
-  handleSubmit() {
-    console.log(this.registerForm.value);
   }
 }
