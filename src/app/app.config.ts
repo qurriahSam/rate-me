@@ -24,21 +24,11 @@ import { RegisterEffect } from './store/auth/register-effect';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideFirebaseApp(() =>
-      initializeApp({
-        projectId: 'chat-grp-ai',
-        appId: '1:314830117811:web:2ac858810710fe91e4c9c6',
-        storageBucket: 'chat-grp-ai.appspot.com',
-        apiKey: 'AIzaSyAaQOFXT2y8f4_5Jb8TcE1S2ni-LH-DuMQ',
-        authDomain: 'chat-grp-ai.firebaseapp.com',
-        messagingSenderId: '314830117811',
-        measurementId: 'G-GZDZ6JL4V7',
-      })
-    ),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
       const auth = getAuth();
-      if (!environment.production) {
-        connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+      if (environment.useEmulators) {
+        connectAuthEmulator(auth, 'http://localhost:9099');
       }
       return auth;
     }),
