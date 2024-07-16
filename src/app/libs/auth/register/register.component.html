@@ -25,7 +25,27 @@
             formControlName="email"
           />
         </label>
+        @if(registerForm.get('email')?.invalid &&
+        (registerForm.get('email')?.dirty ||
+        registerForm.get('email')?.touched)){
+        <div class="label">
+          <span
+            class="label-text-alt text-error"
+            *ngIf="registerForm.get('email')?.errors?.['required']"
+          >
+            Email is required.
+          </span>
+          <span
+            class="label-text-alt text-error"
+            *ngIf="registerForm.get('email')?.errors?.['email']"
+          >
+            Invalid email address.
+          </span>
+        </div>
+        } @else {
         <br />
+        }
+
         <label class="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +64,26 @@
             formControlName="username"
           />
         </label>
+        @if(registerForm.get('username')?.invalid &&
+        (registerForm.get('username')?.dirty ||
+        registerForm.get('username')?.touched)){
+        <div class="label">
+          <span
+            class="label-text-alt text-error"
+            *ngIf="registerForm.get('username')?.errors?.['required']"
+          >
+            Username is required.
+          </span>
+          <span
+            class="label-text-alt text-error"
+            *ngIf="registerForm.get('username')?.errors?.['minlength']"
+          >
+            Username must be at least 3 characters long.
+          </span>
+        </div>
+        } @else {
         <br />
+        }
         <label class="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +104,26 @@
             formControlName="password"
           />
         </label>
+        @if( registerForm.get('password')?.invalid &&
+        (registerForm.get('password')?.dirty ||
+        registerForm.get('password')?.touched)) {
+        <div class="label">
+          <span
+            class="label-text-alt text-error"
+            *ngIf="registerForm.get('password')?.errors?.['required']"
+          >
+            Password is required.
+          </span>
+          <span
+            class="label-text-alt text-error"
+            *ngIf="registerForm.get('password')?.errors?.['minlength']"
+          >
+            Password must be at least 6 characters long.
+          </span>
+        </div>
+        } @else {
         <br />
+        }
         <label class="input input-bordered flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -86,10 +144,20 @@
             formControlName="confirmPassword"
           />
         </label>
+        @if(registerForm.errors?.['mismatch'] &&
+        (registerForm.get('confirmPassword')?.dirty ||
+        registerForm.get('confirmPassword')?.touched)){
+        <div class="label">
+          <span class="label-text-alt text-error">Passwords do not match.</span>
+        </div>
+        } @else {
         <br />
+        }
+
         <button
           class="btn btn-primary btn-block"
           [disabled]="isLoading$ | async"
+          [disabled]="registerForm.invalid"
         >
           @if(isLoading$ | async) {
           <span class="loading loading-dots loading-sm"></span>
@@ -111,7 +179,6 @@
           </svg>
         </button>
       </div>
-
       <p class="mt-5">
         Already have an account?
         <a routerLink="/login" class="link link-primary">Login</a>
