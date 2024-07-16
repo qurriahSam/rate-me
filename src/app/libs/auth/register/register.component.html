@@ -1,4 +1,4 @@
-<section class="flex justify-center items-center h-screen">
+<section class="flex justify-center items-center h-screen relative">
   <div class="card w-96 bg-base-100 shadow-xl">
     <div class="card-body">
       <h2 class="card-title">ChartGrpAi</h2>
@@ -87,7 +87,14 @@
           />
         </label>
         <br />
-        <button class="btn btn-primary btn-block">Register</button>
+        <button
+          class="btn btn-primary btn-block"
+          [disabled]="isLoading$ | async"
+        >
+          @if(isLoading$ | async) {
+          <span class="loading loading-dots loading-sm"></span>
+          } @else { Register }
+        </button>
       </form>
       <div class="divider">OR</div>
       <div class="flex">
@@ -111,7 +118,4 @@
       </p>
     </div>
   </div>
-  @if(isLoading$ | async) {
-  <div>Loading</div>
-  }
 </section>
