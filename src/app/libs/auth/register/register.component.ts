@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { RegisterAction } from '../../../store/auth/register-actions';
 import { AppStateInterface } from '../../../models/appState.interface';
@@ -14,8 +14,10 @@ import { Observable } from 'rxjs';
 import {
   registerErrorSelector,
   registerIsLoadingSelector,
+  registerUserSelector,
 } from '../../../store/auth/registerSelector';
 import { CommonModule } from '@angular/common';
+import { LoggedUser } from '../../../models/loggedUser';
 
 @Component({
   selector: 'app-register',
@@ -24,17 +26,20 @@ import { CommonModule } from '@angular/common';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   isLoading$: Observable<boolean>;
   regError$: Observable<string | null>;
+  regUser$: Observable<LoggedUser>;
 
   constructor(
     private store: Store<AppStateInterface>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.isLoading$ = store.pipe(select(registerIsLoadingSelector));
     this.regError$ = store.pipe(select(registerErrorSelector));
+    this.regUser$ = store.pipe(select(registerUserSelector));
 
     this.registerForm = this.fb.group(
       {
@@ -45,6 +50,14 @@ export class RegisterComponent {
       },
       { validator: this.passwordMatchValidator }
     );
+  }
+
+  ngOnInit(): void {
+    this.regUser$.subscribe((user) => {
+      if (user.id) {
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 
   handleSubmit() {
