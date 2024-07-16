@@ -20,12 +20,13 @@ export class RegisterEffect {
           tap((user) => console.log(user.user)),
           map((user) =>
             RegisterAction.registrationSuccess({
-              isLoading: false,
-              loggedUser: { email: user.user.email, password: 'scorpion254' },
-              error: null,
+              id: user.user.uid,
+              email: user.user.email,
             })
           ),
-          catchError((error) => of(RegisterAction.registrationError({ error })))
+          catchError((error) => {
+            return of(RegisterAction.registrationError({ error: error.code }));
+          })
         )
       )
     );
