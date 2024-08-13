@@ -2,11 +2,11 @@
   "name": "chat-grp-ai",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "ng": "node -r dotenv/config ./node_modules/.bin/ng",
+    "start": "node -r dotenv/config ./node_modules/.bin/ng serve",
+    "build": "node -r dotenv/config ./node_modules/.bin/ng build",
+    "watch": "node -r dotenv/config ./node_modules/.bin/ng build --watch --configuration development",
+    "test": "node -r dotenv/config ./node_modules/.bin/ng test"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +23,7 @@
     "@ngrx/effects": "^18.0.0",
     "@ngrx/store": "^18.0.0",
     "@ngrx/store-devtools": "^18.0.0",
+    "dotenv": "^16.4.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -31,6 +32,7 @@
     "@angular-devkit/build-angular": "^18.0.4",
     "@angular/cli": "^18.0.4",
     "@angular/compiler-cli": "^18.0.3",
+    "@ngx-env/builder": "^18.0.1",
     "@types/jasmine": "~5.1.0",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.11.1",

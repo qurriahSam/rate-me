@@ -43,7 +43,7 @@ Thumbs.db
 
 #environment
 .env
-src/environments
+#src/environments
 
 # Firebase
 .firebase
