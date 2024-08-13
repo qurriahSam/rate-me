@@ -1,6 +1,6 @@
 export const environment = {
-  production: false,
-  useEmulators: true,
+  production: true,
+  useEmulators: false,
   firebase: {
     apiKey: import.meta.env['NG_APP_API_KEY'],
     authDomain: import.meta.env['NG_APP_AUTH_DOMAIN'],
