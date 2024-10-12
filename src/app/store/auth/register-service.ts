@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RegisterUser } from '../../models/loggedUser';
 import { createUserWithEmailAndPassword, Auth } from '@angular/fire/auth';
-import { from } from 'rxjs';
+import { from, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class RegisterService {
 
   signUp(credentials: RegisterUser) {
     if (!credentials.email) {
-      credentials.email = 'try@gmail.com';
+      return throwError(() => new Error('invalid email'));
     }
     return from(
       createUserWithEmailAndPassword(
