@@ -18,6 +18,7 @@ import {
 } from '../../../store/auth/registerSelector';
 import { CommonModule } from '@angular/common';
 import { LoggedUser } from '../../../models/loggedUser';
+import { LocalStorageService } from '../../../localStorageService/local-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private store: Store<AppStateInterface>,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService
   ) {
     this.isLoading$ = store.pipe(select(registerIsLoadingSelector));
     this.regError$ = store.pipe(select(registerErrorSelector));
@@ -53,15 +55,25 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /*    TODO: if user is saved in localStorage. Update info in store and route to dashboard 
+    const userSaved = this.localStorage.getItem('id')
+
+    if(userSaved) {
+
+    }
+ */
     this.regUser$.subscribe((user) => {
       if (user.id) {
+        this.localStorage.setItem('id', user.id);
+        if (user.email) {
+          this.localStorage.setItem('email', user.email);
+        }
         this.router.navigate(['/dashboard']);
       }
     });
   }
 
   handleSubmit() {
-    console.log(this.registerForm.value);
     if (this.registerForm.valid) {
       this.store.dispatch(
         RegisterAction.registerUser({
