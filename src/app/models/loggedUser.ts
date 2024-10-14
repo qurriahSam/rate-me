@@ -3,13 +3,13 @@ export interface RegisterUser {
   password: string;
 }
 
-export interface LoggedUser {
+export interface User {
   email: string | null;
   id: string | null;
 }
 
 export interface RegisterUserStateInterface {
   isLoading: boolean;
-  loggedUser: LoggedUser;
+  loggedUser: User;
   error: null | string;
 }

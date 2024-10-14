@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { RegisterService } from './register-service';
-import { RegisterAction } from './register-actions';
+import { RegisterAction } from './actions';
 import { catchError, delay, map, merge, mergeMap, of, tap } from 'rxjs';
 import { RegisterUser } from '../../models/loggedUser';
 

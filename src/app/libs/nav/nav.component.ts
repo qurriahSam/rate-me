@@ -3,7 +3,7 @@ import { AppStateInterface } from '../../models/appState.interface';
 import { select, Store } from '@ngrx/store';
 import { registerUserSelector } from '../../store/auth/registerSelector';
 import { Observable } from 'rxjs';
-import { LoggedUser } from '../../models/loggedUser';
+import { User } from '../../models/loggedUser';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './nav.component.css',
 })
 export class NavComponent {
-  user$: Observable<LoggedUser>;
+  user$: Observable<User>;
 
   constructor(private store: Store<AppStateInterface>) {
     this.user$ = store.pipe(select(registerUserSelector));

@@ -1,9 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import {
-  LoggedUser,
-  RegisterUserStateInterface,
-} from '../../models/loggedUser';
-import { RegisterAction } from './register-actions';
+import { User, RegisterUserStateInterface } from '../../models/loggedUser';
+import { RegisterAction } from './actions';
 
 const initialState: RegisterUserStateInterface = {
   isLoading: false,

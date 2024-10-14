@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { RegisterAction } from '../../../store/auth/register-actions';
+import { RegisterAction } from '../../../store/auth/actions';
 import { AppStateInterface } from '../../../models/appState.interface';
 import { Observable } from 'rxjs';
 import {
@@ -17,7 +17,7 @@ import {
   registerUserSelector,
 } from '../../../store/auth/registerSelector';
 import { CommonModule } from '@angular/common';
-import { LoggedUser } from '../../../models/loggedUser';
+import { User } from '../../../models/loggedUser';
 import { LocalStorageService } from '../../../localStorageService/local-storage.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   isLoading$: Observable<boolean>;
   regError$: Observable<string | null>;
-  regUser$: Observable<LoggedUser>;
+  regUser$: Observable<User>;
 
   constructor(
     private store: Store<AppStateInterface>,
