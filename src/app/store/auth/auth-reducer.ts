@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { User, UserStateInterface } from '../../models/loggedUser';
-import { RegisterAction } from './actions';
+import { AuthAction } from './actions';
 
 const initialState: UserStateInterface = {
   isLoading: false,
@@ -8,20 +8,20 @@ const initialState: UserStateInterface = {
   error: null,
 };
 
-export const registerReducer = createReducer(
+export const authReducer = createReducer(
   initialState,
-  on(RegisterAction.registerUser, (_state) => ({ ..._state, isLoading: true })),
-  on(RegisterAction.registrationSuccess, (_state, action) => ({
+  on(AuthAction.registerUser, (_state) => ({ ..._state, isLoading: true })),
+  on(AuthAction.registrationSuccess, (_state, action) => ({
     ..._state,
     isLoading: false,
     loggedUser: { email: action.email, id: action.id },
     error: null,
   })),
-  on(RegisterAction.loginUser, (_state, action) => ({
+  on(AuthAction.loginUser, (_state, action) => ({
     ..._state,
     isLoading: true,
   })),
-  on(RegisterAction.registrationError, (_state, action) => ({
+  on(AuthAction.registrationError, (_state, action) => ({
     ..._state,
     error: action.error,
     isLoading: false,

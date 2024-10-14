@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { RegisterService } from './register-service';
-import { RegisterAction } from './actions';
+import { RegisterService } from './auth-service';
+import { AuthAction } from './actions';
 import { catchError, delay, map, merge, mergeMap, of } from 'rxjs';
 import { RegisterUser } from '../../models/loggedUser';
 
@@ -14,21 +14,21 @@ export class RegisterEffect {
 
   register$ = createEffect(() => {
     return this._registerAction$.pipe(
-      ofType('[Register] Register User'),
+      ofType('[Auth] Register User'),
       mergeMap((credentials: RegisterUser) =>
         this._registerService$.signUp(credentials).pipe(
           map((user) =>
-            RegisterAction.registrationSuccess({
+            AuthAction.registrationSuccess({
               id: user.user.uid,
               email: user.user.email,
             })
           ),
           catchError((error) => {
             const errorTimeout$ = of(
-              RegisterAction.registrationError({ error: null })
+              AuthAction.registrationError({ error: null })
             ).pipe(delay(2000));
             const postError$ = of(
-              RegisterAction.registrationError({ error: error.code })
+              AuthAction.registrationError({ error: error.code })
             );
             return merge(postError$, errorTimeout$);
           })

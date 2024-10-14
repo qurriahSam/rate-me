@@ -8,14 +8,14 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { RegisterAction } from '../../../store/auth/actions';
+import { AuthAction } from '../../../store/auth/actions';
 import { AppStateInterface } from '../../../models/appState.interface';
 import { Observable } from 'rxjs';
 import {
-  registerErrorSelector,
-  registerIsLoadingSelector,
+  authErrorSelector,
+  authIsLoadingSelector,
   registerUserSelector,
-} from '../../../store/auth/registerSelector';
+} from '../../../store/auth/authSelectors';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../models/loggedUser';
 import { LocalStorageService } from '../../../localStorageService/local-storage.service';
@@ -39,8 +39,8 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private localStorage: LocalStorageService
   ) {
-    this.isLoading$ = store.pipe(select(registerIsLoadingSelector));
-    this.regError$ = store.pipe(select(registerErrorSelector));
+    this.isLoading$ = store.pipe(select(authIsLoadingSelector));
+    this.regError$ = store.pipe(select(authErrorSelector));
     this.regUser$ = store.pipe(select(registerUserSelector));
 
     this.registerForm = this.fb.group(
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
   handleSubmit() {
     if (this.registerForm.valid) {
       this.store.dispatch(
-        RegisterAction.registerUser({
+        AuthAction.registerUser({
           email: this.registerForm.value.email as string,
           password: this.registerForm.value.password as string,
         })

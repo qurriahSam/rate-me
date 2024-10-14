@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppStateInterface } from '../../models/appState.interface';
 import { Observable } from 'rxjs';
-import { registerErrorSelector } from '../../store/auth/registerSelector';
+import { authErrorSelector } from '../../store/auth/authSelectors';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,6 +15,6 @@ import { CommonModule } from '@angular/common';
 export class AlertComponent {
   regError$: Observable<string | null>;
   constructor(private store: Store<AppStateInterface>) {
-    this.regError$ = store.pipe(select(registerErrorSelector));
+    this.regError$ = store.pipe(select(authErrorSelector));
   }
 }

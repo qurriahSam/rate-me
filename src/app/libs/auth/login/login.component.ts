@@ -9,7 +9,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from '../../../models/appState.interface';
-import { RegisterAction } from '../../../store/auth/actions';
+import { AuthAction } from '../../../store/auth/actions';
 
 @Component({
   selector: 'app-login',
@@ -32,11 +32,9 @@ export class LoginComponent {
   }
 
   handleSubmit() {
-    console.log(this.loginForm.value);
-    console.log(this.loginForm.valid);
     if (this.loginForm.valid) {
       this.store.dispatch(
-        RegisterAction.loginUser({
+        AuthAction.loginUser({
           email: this.loginForm.value.email as string,
           password: this.loginForm.value.password as string,
         })

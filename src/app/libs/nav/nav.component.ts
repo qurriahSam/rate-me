@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppStateInterface } from '../../models/appState.interface';
 import { select, Store } from '@ngrx/store';
-import { registerUserSelector } from '../../store/auth/registerSelector';
+import { registerUserSelector } from '../../store/auth/authSelectors';
 import { Observable } from 'rxjs';
 import { User } from '../../models/loggedUser';
 import { CommonModule } from '@angular/common';
