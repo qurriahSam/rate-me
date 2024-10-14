@@ -7,9 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from '../../../models/appState.interface';
 import { AuthAction } from '../../../store/auth/actions';
+import { authIsLoadingSelector } from '../../../store/auth/authSelectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,7 @@ import { AuthAction } from '../../../store/auth/actions';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-
+  isLoading$: Observable<boolean>;
   constructor(
     private fb: FormBuilder,
     private store: Store<AppStateInterface>
@@ -29,6 +31,7 @@ export class LoginComponent {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+    this.isLoading$ = store.pipe(select(authIsLoadingSelector));
   }
 
   handleSubmit() {

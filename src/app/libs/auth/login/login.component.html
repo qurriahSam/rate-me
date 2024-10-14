@@ -25,8 +25,19 @@
             formControlName="email"
           />
         </label>
-
+        @if(loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty ||
+        loginForm.get('email')?.touched)){
+        <div class="label">
+          <span
+            class="label-text-alt text-error"
+            *ngIf="loginForm.get('email')?.errors?.['required']"
+          >
+            Email is required.
+          </span>
+        </div>
+        } @else {
         <br />
+        }
 
         <label class="input input-bordered flex items-center gap-2">
           <svg
@@ -48,9 +59,31 @@
             formControlName="password"
           />
         </label>
+        @if( loginForm.get('password')?.invalid &&
+        (loginForm.get('password')?.dirty ||
+        loginForm.get('password')?.touched)) {
+        <div class="label">
+          <span
+            class="label-text-alt text-error"
+            *ngIf="loginForm.get('password')?.errors?.['required']"
+          >
+            Password is required.
+          </span>
+        </div>
+        } @else {
         <br />
-        <button class="btn btn-primary btn-block">Login</button>
+        }
+        <button
+          class="btn btn-primary btn-block"
+          [disabled]="isLoading$ | async"
+          [disabled]="loginForm.invalid"
+        >
+          @if(isLoading$ | async) {
+          <span class="loading loading-dots loading-sm"></span>
+          } @else { Register }
+        </button>
       </form>
+      <!--  TODO: Implement Google Authentication     
       <div class="divider">OR</div>
       <div class="flex">
         <button class="btn btn-outline btn-circle hover:text-primary">
@@ -65,7 +98,7 @@
             />
           </svg>
         </button>
-      </div>
+      </div> -->
       <p class="mt-5">
         Don't have an account?
         <a routerLink="/register" class="link link-primary">Register</a>
