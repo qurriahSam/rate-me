@@ -8,7 +8,7 @@ export interface User {
   id: string | null;
 }
 
-export interface RegisterUserStateInterface {
+export interface UserStateInterface {
   isLoading: boolean;
   loggedUser: User;
   error: null | string;

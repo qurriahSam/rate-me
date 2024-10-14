@@ -20,6 +20,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { registerReducer } from './store/auth/register-reducer';
 import { RegisterEffect } from './store/auth/register-effect';
+import { LoginEffect } from './store/auth/login-effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,8 +47,8 @@ export const appConfig: ApplicationConfig = {
       }
       return db;
     }),
-    provideStore({ register: registerReducer }),
-    provideEffects([RegisterEffect]),
+    provideStore({ auth: registerReducer }),
+    provideEffects([RegisterEffect, LoginEffect]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
