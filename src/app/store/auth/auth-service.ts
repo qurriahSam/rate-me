@@ -41,6 +41,6 @@ export class RegisterService {
   }
 
   logout() {
-    signOut(this.auth);
+    return from(signOut(this.auth));
   }
 }

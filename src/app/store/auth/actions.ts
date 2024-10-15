@@ -8,5 +8,6 @@ export const AuthAction = createActionGroup({
     'Login User': props<RegisterUser>(),
     'Registration Success': props<User>(),
     'Registration Error': props<{ error: string | null }>(),
+    'Logout User': emptyProps(),
   },
 });
