@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { AppStateInterface } from '../../models/appState.interface';
 import { select, Store } from '@ngrx/store';
-import { registerUserSelector } from '../../store/auth/registerSelector';
+import { registerUserSelector } from '../../store/auth/authSelectors';
 import { Observable } from 'rxjs';
-import { LoggedUser } from '../../models/loggedUser';
+import { User } from '../../models/loggedUser';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthAction } from '../../store/auth/actions';
+import { LocalStorageService } from '../../localStorageService/local-storage.service';
 
 @Component({
   selector: 'app-nav',
@@ -15,9 +17,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './nav.component.css',
 })
 export class NavComponent {
-  user$: Observable<LoggedUser>;
+  user$: Observable<User>;
 
-  constructor(private store: Store<AppStateInterface>) {
+  constructor(
+    private store: Store<AppStateInterface>,
+    private localStorage: LocalStorageService
+  ) {
     this.user$ = store.pipe(select(registerUserSelector));
+  }
+
+  logout() {
+    this.store.dispatch(AuthAction.logoutUser());
+    this.localStorage.clear();
   }
 }

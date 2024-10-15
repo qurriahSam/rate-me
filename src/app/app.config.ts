@@ -18,8 +18,10 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { registerReducer } from './store/auth/register-reducer';
+import { authReducer } from './store/auth/auth-reducer';
 import { RegisterEffect } from './store/auth/register-effect';
+import { LoginEffect } from './store/auth/login-effect';
+import { LogoutEffect } from './store/auth/logout-effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,8 +48,8 @@ export const appConfig: ApplicationConfig = {
       }
       return db;
     }),
-    provideStore({ register: registerReducer }),
-    provideEffects([RegisterEffect]),
+    provideStore({ auth: authReducer }),
+    provideEffects([RegisterEffect, LoginEffect, LogoutEffect]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };

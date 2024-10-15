@@ -1,28 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { RegisterService } from './auth-service';
+import { mergeMap, map, catchError, delay, of, merge } from 'rxjs';
 import { AuthAction } from './actions';
-import { catchError, delay, map, merge, mergeMap, of } from 'rxjs';
-import { RegisterUser } from '../../models/loggedUser';
 
 @Injectable()
-export class RegisterEffect {
+export class LogoutEffect {
   constructor(
-    private _registerAction$: Actions,
+    private _logoutAction$: Actions,
     private _registerService$: RegisterService
   ) {}
 
-  register$ = createEffect(() => {
-    return this._registerAction$.pipe(
-      ofType('[Auth] Register User'),
-      mergeMap((credentials: RegisterUser) =>
-        this._registerService$.signUp(credentials).pipe(
-          map((user) =>
-            AuthAction.registrationSuccess({
-              id: user.user.uid,
-              email: user.user.email,
-            })
-          ),
+  logout$ = createEffect(() => {
+    return this._logoutAction$.pipe(
+      ofType('[Auth] Logout User'),
+      mergeMap(() =>
+        this._registerService$.logout().pipe(
+          map(() => AuthAction.registrationSuccess({ id: null, email: null })),
           catchError((error) => {
             const errorTimeout$ = of(
               AuthAction.registrationError({ error: null })

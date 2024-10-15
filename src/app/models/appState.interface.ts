@@ -1,5 +1,5 @@
-import { RegisterUserStateInterface } from './loggedUser';
+import { UserStateInterface } from './loggedUser';
 
 export interface AppStateInterface {
-  register: RegisterUserStateInterface;
+  auth: UserStateInterface;
 }

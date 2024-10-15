@@ -1,17 +1,17 @@
 import { createSelector } from '@ngrx/store';
 import { AppStateInterface } from '../../models/appState.interface';
 
-export const selectRegisterState = (state: AppStateInterface) => state.register;
+export const selectAuthState = (state: AppStateInterface) => state.auth;
 
-export const registerIsLoadingSelector = createSelector(
-  selectRegisterState,
+export const authIsLoadingSelector = createSelector(
+  selectAuthState,
   (state) => state.isLoading
 );
-export const registerErrorSelector = createSelector(
-  selectRegisterState,
+export const authErrorSelector = createSelector(
+  selectAuthState,
   (state) => state.error
 );
 export const registerUserSelector = createSelector(
-  selectRegisterState,
+  selectAuthState,
   (state) => state.loggedUser
 );
