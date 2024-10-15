@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { User } from '../../models/loggedUser';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthAction } from '../../store/auth/actions';
+import { LocalStorageService } from '../../localStorageService/local-storage.service';
 
 @Component({
   selector: 'app-nav',
@@ -17,7 +19,15 @@ import { RouterLink } from '@angular/router';
 export class NavComponent {
   user$: Observable<User>;
 
-  constructor(private store: Store<AppStateInterface>) {
+  constructor(
+    private store: Store<AppStateInterface>,
+    private localStorage: LocalStorageService
+  ) {
     this.user$ = store.pipe(select(registerUserSelector));
+  }
+
+  logout() {
+    this.store.dispatch(AuthAction.logoutUser());
+    this.localStorage.clear();
   }
 }
