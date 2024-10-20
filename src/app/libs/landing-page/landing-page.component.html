@@ -45,7 +45,7 @@
   </div>
 
   <!-- Hero Section -->
-  <section class="hero min-h-96">
+  <section class="hero min-h-screen">
     <div class="hero-content flex-col lg:flex-row-reverse">
       <img
         [src]="'assets/images/rcp1M.png'"
@@ -87,7 +87,7 @@
             </p>
           </div>
         </div>
-        <div class="card card-side shadow-xl p-3 items-center mb-4">
+        <div class="card card-side shadow-md p-3 items-center mb-4">
           <span
             class="material-symbols-outlined text-4xl font-bold mr-2 text-success"
           >
@@ -102,7 +102,7 @@
             </p>
           </div>
         </div>
-        <div class="card card-side shadow-xl p-3 items-center mb-4">
+        <div class="card card-side shadow-md p-3 items-center mb-4">
           <span
             class="material-symbols-outlined text-4xl font-bold mr-2 text-success"
           >
@@ -119,6 +119,19 @@
         </div>
       </div>
     </div>
+  </section>
+  <section class="flex flex-col justify-center mb-10">
+    <h1 class="text-5xl font-bold mb-5 text-center">Box Office News!</h1>
+    <div
+      class="container mx-auto w-4/5 grid md:grid-cols-2 lg:grid-cols-3 md:auto-cols-auto gap-x-8 gap-y-10 mb-7"
+    >
+      <app-vote-card></app-vote-card>
+      <app-vote-card></app-vote-card>
+      <app-vote-card></app-vote-card>
+    </div>
+    <button class="btn btn-primary text-lg w-20" routerLink="/dashboard">
+      View More
+    </button>
   </section>
   <footer class="footer px-10 pt-10 bg-green-700 text-neutral-content">
     <aside>
