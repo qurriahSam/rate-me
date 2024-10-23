@@ -79,6 +79,7 @@ export class RegisterComponent implements OnInit {
         AuthAction.registerUser({
           email: this.registerForm.value.email as string,
           password: this.registerForm.value.password as string,
+          username: this.registerForm.value.username as string,
         })
       );
     }
