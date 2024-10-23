@@ -1,4 +1,4 @@
-<div class="container md:mx-auto md:px-4">
+<div class="container mx-auto">
   <!-- Home Navbar -->
   <div class="navbar bg-base-100">
     <div class="navbar-start">
@@ -30,7 +30,7 @@
           <li><a>Contact</a></li>
         </ul>
       </div>
-      <img [src]="'assets/images/rateM3g.png'" class="max-w-48 mt-2" />
+      <img [src]="'assets/images/rateM3g.png'" class="max-w-32 lg:max-w-48" />
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
@@ -45,7 +45,7 @@
   </div>
 
   <!-- Hero Section -->
-  <section class="hero min-h-screen">
+  <section class="hero lg:min-h-screen">
     <div class="hero-content flex-col lg:flex-row-reverse">
       <img
         [src]="'assets/images/rcp1M.png'"
@@ -64,7 +64,7 @@
   </section>
 
   <!-- About Section -->
-  <section class="hero min-h-screen">
+  <section class="hero lg:min-h-screen">
     <div class="hero-content flex-col lg:flex-row">
       <img
         [src]="'assets/images/rcp3.png'"
@@ -120,7 +120,7 @@
       </div>
     </div>
   </section>
-  <section class="flex flex-col justify-center mb-10">
+  <section class="flex flex-col justify-center items-center mb-10">
     <h1 class="text-5xl font-bold mb-5 text-center">Box Office News!</h1>
     <div
       class="container mx-auto w-4/5 grid md:grid-cols-2 lg:grid-cols-3 md:auto-cols-auto gap-x-8 gap-y-10 mb-7"
@@ -129,7 +129,7 @@
       <app-vote-card></app-vote-card>
       <app-vote-card></app-vote-card>
     </div>
-    <button class="btn btn-primary text-lg w-20" routerLink="/dashboard">
+    <button class="btn btn-link text-lg w-44" routerLink="/dashboard">
       View More
     </button>
   </section>
