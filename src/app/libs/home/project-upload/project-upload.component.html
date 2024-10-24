@@ -1,6 +1,6 @@
 <button class="btn btn-primary" onclick="my_modal_3.showModal()">
   <span class="material-symbols-outlined"> upload </span>
-  upload project
+  <span class="hidden md:inline">upload project</span>
 </button>
 <dialog id="my_modal_3" class="modal">
   <div class="modal-box">
@@ -9,7 +9,21 @@
         ✕
       </button>
     </form>
-    <h3 class="text-lg font-bold">Hello!</h3>
-    <p class="py-4">Press ESC key or click on ✕ button to close</p>
+    <form class="form-control mt-5">
+      <label for="" class="">
+        <input
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered w-full"
+        />
+      </label>
+      <label for="" class="">
+        <input
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered w-full"
+        />
+      </label>
+    </form>
   </div>
 </dialog>
