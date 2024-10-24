@@ -7,6 +7,14 @@
     <button class="btn btn-link" routerLink="/register">Login/Register</button>
   </div>
   <div *ngIf="user.id" class="flex-none gap-2">
+    <div class="">
+      <ul class="menu menu-horizontal px-1">
+        <li><a routerLink="all-projects">all projects</a></li>
+        <li>
+          <a routerLink="my-projects">my projects</a>
+        </li>
+      </ul>
+    </div>
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
