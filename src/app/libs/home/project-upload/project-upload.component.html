@@ -1,6 +1,6 @@
 <button class="btn btn-primary" onclick="my_modal_3.showModal()">
   <span class="material-symbols-outlined"> upload </span>
-  <span class="hidden md:inline">upload project</span>
+  <span class="hidden md:inline">Upload Project</span>
 </button>
 <dialog id="my_modal_3" class="modal">
   <div class="modal-box">
@@ -17,7 +17,7 @@
           name="project name"
           type="text"
           placeholder="Type here"
-          class="input input-bordered input-sm w-full mb-4"
+          class="input input-bordered w-full mb-4"
         />
       </label>
       <label>
@@ -35,18 +35,26 @@
           name="project url"
           type="text"
           placeholder="Type here"
-          class="input input-bordered w-full"
+          class="input input-bordered w-full mb-4"
         />
       </label>
-      <label>
-        Topics:
-        <input
-          name="project url"
-          type="text"
-          placeholder="Type here"
-          class="input input-bordered w-full"
-        />
-      </label>
+      <label class="mb-1" for="tags">Tags:</label>
+      <div class="input input-bordered flex items-center gap-2 mb-4">
+        <span class="badge badge-info py-3">
+          Optional
+          <span
+            class="material-symbols-outlined ps-1 text-base cursor-pointer hover:text-white"
+            >close</span
+          >
+        </span>
+        <span class="badge badge-info">Optional</span>
+        <span class="badge badge-info">Optional</span>
+        <input type="text" class="grow" name="tags" placeholder="Search" />
+      </div>
+      <button class="btn btn-primary">
+        <span class="material-symbols-outlined"> upload </span>
+        <span class="">Upload</span>
+      </button>
     </form>
   </div>
 </dialog>
