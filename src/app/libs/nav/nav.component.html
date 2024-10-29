@@ -1,6 +1,6 @@
-<div class="navbar mb-10 px-6">
+<div class="navbar mb-10 container mx-auto">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">RateM3</a>
+    <img [src]="'assets/images/logo.png'" class="max-w-32 lg:max-w-26" alt="" />
   </div>
   @if(user$ | async; as user){
   <div *ngIf="!user.id" class="nav-end">
