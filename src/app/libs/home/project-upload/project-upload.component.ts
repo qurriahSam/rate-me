@@ -7,6 +7,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { partition } from 'rxjs';
 
 @Component({
   selector: 'app-project-upload',
@@ -17,14 +18,19 @@ import {
 })
 export class ProjectUploadComponent {
   projectForm: FormGroup;
+  projectLinks: FormGroup;
+  page: 'form' | 'links' | 'preview' = 'links';
   constructor(private fb: FormBuilder) {
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.projectForm = fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
-      demoUrl: ['', [Validators.required, Validators.pattern(reg)]],
-      repoUrl: ['', [Validators.required, Validators.pattern(reg)]],
+      description: ['', [Validators.required, Validators.minLength(8)]],
       addTag: '',
       tags: this.fb.array([]),
+    });
+    this.projectLinks = fb.group({
+      demoUrl: ['', [Validators.required, Validators.pattern(reg)]],
+      repoUrl: ['', [Validators.required, Validators.pattern(reg)]],
     });
   }
 
@@ -39,6 +45,10 @@ export class ProjectUploadComponent {
 
   removeTag(index: number) {
     this.tags.removeAt(index);
+  }
+
+  changePage(newPage: 'form' | 'links' | 'preview') {
+    this.page = newPage;
   }
 
   onSubmit() {
