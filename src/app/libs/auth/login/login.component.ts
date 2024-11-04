@@ -16,7 +16,7 @@ import {
 } from '../../../store/auth/authSelectors';
 import { Observable } from 'rxjs';
 import { User } from '../../../models/loggedUser';
-import { LocalStorageService } from '../../../localStorageService/local-storage.service';
+import { LocalStorageService } from '../../../services/localStorageService/local-storage.service';
 
 @Component({
   selector: 'app-login',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AlertComponent } from './libs/alert/alert.component';
-import { LocalStorageService } from './localStorageService/local-storage.service';
+import { LocalStorageService } from './services/localStorageService/local-storage.service';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from './models/appState.interface';
 import { AuthAction } from './store/auth/actions';

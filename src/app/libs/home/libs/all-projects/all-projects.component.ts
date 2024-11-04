@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { VoteCardComponent } from '../vote-card/vote-card.component';
 import { SearchComponent } from '../search/search.component';
-import { ProjectUploadComponent } from '../../project-upload/project-upload.component';
+import { ProjectUploadComponent } from '../project-upload/project-upload.component';
 
 @Component({
   selector: 'app-all-projects',
