@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { RegisterService } from './auth-service';
 import { AuthAction } from './actions';
 import { catchError, delay, map, merge, mergeMap, of, tap } from 'rxjs';
-import { RegisterUser } from '../../models/loggedUser';
+import { LoginUser } from '../../models/loggedUser';
 
 @Injectable()
 export class LoginEffect {
@@ -15,7 +15,7 @@ export class LoginEffect {
   login$ = createEffect(() => {
     return this._loginAction$.pipe(
       ofType('[Auth] Login User'),
-      mergeMap((credentials: RegisterUser) =>
+      mergeMap((credentials: LoginUser) =>
         this._registerService$.signIn(credentials).pipe(
           map((user) =>
             AuthAction.registrationSuccess({

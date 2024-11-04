@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RegisterUser } from '../../models/loggedUser';
+import { RegisterUser, LoginUser } from '../../models/loggedUser';
 import {
   createUserWithEmailAndPassword,
   Auth,
@@ -27,7 +27,7 @@ export class RegisterService {
     );
   }
 
-  signIn(credentials: RegisterUser) {
+  signIn(credentials: LoginUser) {
     if (!credentials.email) {
       return throwError(() => new Error('invalid email'));
     }

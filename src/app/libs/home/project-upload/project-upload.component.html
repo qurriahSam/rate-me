@@ -1,0 +1,214 @@
+<button class="btn btn-primary" onclick="my_modal_3.showModal()">
+  <span class="material-symbols-outlined"> upload </span>
+  <span class="hidden md:inline">Upload Project</span>
+</button>
+<dialog id="my_modal_3" class="modal">
+  <div class="modal-box lg:min-w-[60vw]">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <div [ngSwitch]="page">
+      <div *ngSwitchCase="'form'">
+        <ul class="steps w-full">
+          <li data-content="" class="step step-primary">App Details</li>
+          <li data-content="" class="step">Links & Screenshot</li>
+          <li data-content="" class="step">Preview & Submit</li>
+        </ul>
+        <form class="form-control mt-5" [formGroup]="projectForm">
+          <label class="">
+            Title:
+            <input
+              name="project name"
+              type="text"
+              placeholder="Type here"
+              class="input input-bordered input-md w-full"
+              formControlName="title"
+            />
+            @if(projectForm.get('title')?.invalid &&
+            (projectForm.get('title')?.dirty ||
+            projectForm.get('title')?.touched)){
+            <div class="label">
+              <span
+                *ngIf="projectForm.get('title')?.errors?.['required']"
+                class="label-text-alt text-error"
+                >Title is required.</span
+              >
+              <span
+                class="label-text-alt text-error"
+                *ngIf="projectForm.get('title')?.errors?.['minlength']"
+              >
+                Title must be at least 3 characters long.
+              </span>
+            </div>
+            } @else {
+            <span class="block mb-4"></span>
+            }
+          </label>
+          <label>
+            Description:
+            <input
+              name="Short description of your application"
+              type="text"
+              placeholder="Type here"
+              class="input input-bordered input-md w-full"
+              formControlName="description"
+            />
+            @if(projectForm.get('description')?.invalid &&
+            (projectForm.get('description')?.dirty ||
+            projectForm.get('description')?.touched)){
+            <div class="label">
+              <span
+                *ngIf="projectForm.get('description')?.errors?.['required']"
+                class="label-text-alt text-error"
+                >Description is required.</span
+              >
+              <span
+                class="label-text-alt text-error"
+                *ngIf="projectForm.get('description')?.errors?.['minlength']"
+              >
+                Description must be at least 8 characters long.
+              </span>
+            </div>
+            } @else {
+            <span class="block mb-4"></span>
+            }
+          </label>
+          <label class="mb-1" for="tags"
+            >Tags:
+            <span class="text-gray-500/55">(Separate with spaces)</span></label
+          >
+          <div
+            class="border rounded-lg input-bordered flex items-center gap-2 mb-4 flex-wrap p-2"
+          >
+            @for(tag of tags.controls; track tag; let i = $index) {
+            <span class="badge badge-primary py-3 pe-0">
+              {{ tag.value }}
+              <button
+                class="btn btn-circle btn-xs btn-success hover:text-white ms-1"
+              >
+                <span
+                  class="material-symbols-outlined text-base"
+                  (click)="removeTag(i)"
+                  >close</span
+                >
+              </button>
+            </span>
+            }
+            <input
+              type="text"
+              class="input input-sm grow focus:outline-0 focus:border-0"
+              name="tags"
+              formControlName="addTag"
+              placeholder="Add Tag"
+              (keyup.Space)="addTag($event)"
+              (keyup.enter)="addTag($event)"
+            />
+          </div>
+          <div class="flex justify-end">
+            <button
+              class="btn btn-primary max-w-40"
+              [disabled]="projectForm.invalid"
+              (click)="changePage('links')"
+            >
+              <span class="">Next</span>
+              <span class="material-symbols-outlined">arrow_right </span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div *ngSwitchCase="'links'">
+        <ul class="steps w-full mb-7">
+          <li data-content="" class="step step-primary text-sm">App Details</li>
+          <li data-content="" class="step step-primary">Links & Screenshot</li>
+          <li data-content="" class="step">Preview & Submit</li>
+        </ul>
+        <form [formGroup]="projectLinks">
+          <label>
+            Website:
+            <input
+              name="project url"
+              type="text"
+              placeholder="https://example.com"
+              class="input input-bordered w-full"
+              formControlName="demoUrl"
+            />
+            @if(projectLinks.get('demoUrl')?.invalid &&
+            (projectLinks.get('demoUrl')?.dirty ||
+            projectLinks.get('demoUrl')?.touched)){
+            <div class="label">
+              <span
+                *ngIf="projectLinks.get('demoUrl')?.errors?.['required']"
+                class="label-text-alt text-error"
+                >Website link is required.</span
+              >
+              <span
+                class="label-text-alt text-error"
+                *ngIf="projectLinks.get('demoUrl')?.errors?.['pattern']"
+              >
+                Invalid Url
+              </span>
+            </div>
+            } @else {
+            <span class="block mb-5"></span>
+            }
+          </label>
+          <label>
+            Repository Url:
+            <input
+              name="project url"
+              type="text"
+              placeholder="https://github.com/username/repositoryname"
+              class="input input-bordered w-full"
+              formControlName="repoUrl"
+            />
+            @if(projectLinks.get('repoUrl')?.invalid &&
+            (projectLinks.get('repoUrl')?.dirty ||
+            projectLinks.get('repoUrl')?.touched)){
+            <div class="label">
+              <span
+                *ngIf="projectLinks.get('repoUrl')?.errors?.['required']"
+                class="label-text-alt text-error"
+                >This field is required.</span
+              >
+              <span
+                class="label-text-alt text-error"
+                *ngIf="projectLinks.get('repoUrl')?.errors?.['pattern']"
+              >
+                Invalid Url
+              </span>
+            </div>
+            } @else {
+            <span class="block mb-7"></span>
+            }
+          </label>
+          <div class="container">
+            <p>Screenshot</p>
+            <img src="" alt="" />
+          </div>
+          <div class="flex justify-between">
+            <button class="btn max-w-40" (click)="changePage('form')">
+              <span class="material-symbols-outlined"> arrow_left </span>
+              <span class="">Back</span>
+            </button>
+            <button
+              class="btn btn-primary max-w-40"
+              (click)="changePage('preview')"
+            >
+              <span>Next</span>
+              <span class="material-symbols-outlined"> arrow_right </span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div *ngSwitchCase="'preview'">
+        <ul class="steps w-full">
+          <li data-content="" class="step step-primary">App Details</li>
+          <li data-content="" class="step step-primary">Links & Screenshot</li>
+          <li data-content="" class="step step-primary">Preview & Submit</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</dialog>
