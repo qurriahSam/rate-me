@@ -10,6 +10,8 @@ declare interface Env {
   NG_APP_MESSAGING_SENDER_ID: string;
   NG_APP_APP_ID: string;
   NG_APP_MEASURMENT_ID: string;
+  NG_APP_SCREENSHOTONE_ACCESS_KEY: string;
+  NG_APP_SCREENSHOTONE_SECRET_KEY: string;
 }
 
 // Choose how to access the environment variables.
