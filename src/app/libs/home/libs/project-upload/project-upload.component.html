@@ -2,8 +2,8 @@
   <span class="material-symbols-outlined"> upload </span>
   <span class="hidden md:inline">Upload Project</span>
 </button>
-<dialog id="my_modal_3" class="modal">
-  <div class="modal-box lg:min-w-[60vw]">
+<dialog id="my_modal_3" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
         ✕
@@ -12,13 +12,23 @@
     <div [ngSwitch]="page">
       <div *ngSwitchCase="'form'">
         <ul class="steps w-full">
-          <li data-content="" class="step step-primary">App Details</li>
-          <li data-content="" class="step">Links & Screenshot</li>
-          <li data-content="" class="step">Preview & Submit</li>
+          <li data-content="" class="step step-primary text-sm font-medium">
+            App Details
+          </li>
+          <li data-content="" class="step text-sm font-medium">
+            Links & Screenshot
+          </li>
+          <li data-content="" class="step text-sm font-medium">
+            Preview & Submit
+          </li>
         </ul>
         <form class="form-control mt-5" [formGroup]="projectForm">
           <label class="">
-            Title:
+            <span
+              class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium mb-1"
+            >
+              Title:
+            </span>
             <input
               name="project name"
               type="text"
@@ -47,7 +57,11 @@
             }
           </label>
           <label>
-            Description:
+            <span
+              class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium mb-1"
+            >
+              Description:
+            </span>
             <input
               name="Short description of your application"
               type="text"
@@ -75,7 +89,7 @@
             <span class="block mb-4"></span>
             }
           </label>
-          <label class="mb-1" for="tags"
+          <label class="mb-1 font-medium text-sm" for="tags"
             >Tags:
             <span class="text-gray-500/55">(Separate with spaces)</span></label
           >
@@ -118,21 +132,44 @@
           </div>
         </form>
       </div>
-      <div *ngSwitchCase="'links'">
-        <ul class="steps w-full mb-7">
-          <li data-content="" class="step step-primary text-sm">App Details</li>
-          <li data-content="" class="step step-primary">Links & Screenshot</li>
-          <li data-content="" class="step">Preview & Submit</li>
+      <div *ngSwitchCase="'links'" class="">
+        <ul class="steps w-full mb-5">
+          <li
+            data-content=""
+            class="step step-primary after:!h-4 font-medium text-sm"
+          >
+            App Details
+          </li>
+          <li
+            data-content=""
+            class="step step-primary after:!h-4 before:!h-1.5 font-medium text-sm"
+          >
+            Links & Screenshot
+          </li>
+          <li
+            data-content=""
+            class="step after:!h-4 before:!h-1.5 font-medium text-sm"
+          >
+            Preview & Submit
+          </li>
         </ul>
-        <form [formGroup]="projectLinks">
+        <form
+          [formGroup]="projectLinks"
+          class="h-80 overflow-y-auto p-2 lg:p-5"
+        >
           <label>
-            Website:
+            <span
+              class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium mb-1"
+            >
+              Website:
+            </span>
             <input
               name="project url"
               type="text"
               placeholder="https://example.com"
-              class="input input-bordered w-full"
+              class="input input-bordered input-sm w-full"
               formControlName="demoUrl"
+              (input)="ondemoUrlInputChange()"
             />
             @if(projectLinks.get('demoUrl')?.invalid &&
             (projectLinks.get('demoUrl')?.dirty ||
@@ -151,11 +188,15 @@
               </span>
             </div>
             } @else {
-            <span class="block mb-5"></span>
+            <span class="block mb-3"></span>
             }
           </label>
           <label>
-            Repository Url:
+            <span
+              class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium mb-1"
+            >
+              Repository Url:
+            </span>
             <input
               name="project url"
               type="text"
@@ -184,29 +225,53 @@
             }
           </label>
           <div class="container">
-            <p>Screenshot</p>
-            <img src="" alt="" />
-          </div>
-          <div class="flex justify-between">
-            <button class="btn max-w-40" (click)="changePage('form')">
-              <span class="material-symbols-outlined"> arrow_left </span>
-              <span class="">Back</span>
-            </button>
-            <button
-              class="btn btn-primary max-w-40"
-              (click)="changePage('preview')"
+            <p
+              class="mb-1 text-sm font-medium after:content-['*'] after:ml-0.5 after:text-red-500"
             >
-              <span>Next</span>
-              <span class="material-symbols-outlined"> arrow_right </span>
-            </button>
+              Screenshot:
+            </p>
+            <div
+              class="border p-2 rounded-lg min-h-64 flex justify-center items-center"
+            >
+              @if(screenshot) {
+              <img [src]="screenshot" class="" alt="" />
+              } @else if (true) {
+              <span class="loading loading-ring loading-lg"></span>
+              } @else {
+              <img
+                src="../../../../../assets/images/image.svg"
+                class="w-1/5"
+                alt=""
+              />
+              }
+            </div>
           </div>
         </form>
+        <div class="flex justify-between mt-2">
+          <button class="btn max-w-40" (click)="changePage('form')">
+            <span class="material-symbols-outlined"> arrow_left </span>
+            <span class="">Back</span>
+          </button>
+          <button
+            class="btn btn-primary max-w-40"
+            (click)="changePage('preview')"
+          >
+            <span>Next</span>
+            <span class="material-symbols-outlined"> arrow_right </span>
+          </button>
+        </div>
       </div>
       <div *ngSwitchCase="'preview'">
         <ul class="steps w-full">
-          <li data-content="" class="step step-primary">App Details</li>
-          <li data-content="" class="step step-primary">Links & Screenshot</li>
-          <li data-content="" class="step step-primary">Preview & Submit</li>
+          <li data-content="" class="step step-primary text-sm font-medium">
+            App Details
+          </li>
+          <li data-content="" class="step step-primary text-sm font-medium">
+            Links & Screenshot
+          </li>
+          <li data-content="" class="step step-primary text-sm font-medium">
+            Preview & Submit
+          </li>
         </ul>
       </div>
     </div>
