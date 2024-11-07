@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -7,7 +7,8 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { partition } from 'rxjs';
+import { debounceTime, filter, Subject } from 'rxjs';
+import { ScreenshotOneService } from '../../../../services/screenshotOne/screenshot-one.service';
 
 @Component({
   selector: 'app-project-upload',
@@ -16,11 +17,15 @@ import { partition } from 'rxjs';
   templateUrl: './project-upload.component.html',
   styleUrl: './project-upload.component.css',
 })
-export class ProjectUploadComponent {
+export class ProjectUploadComponent implements OnInit {
   projectForm: FormGroup;
   projectLinks: FormGroup;
+  screenshot?: string;
+  demoUrlWatcher: Subject<string>;
   page: 'form' | 'links' | 'preview' = 'links';
-  constructor(private fb: FormBuilder) {
+  loading = false;
+
+  constructor(private fb: FormBuilder, private scrot: ScreenshotOneService) {
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.projectForm = fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
@@ -31,6 +36,23 @@ export class ProjectUploadComponent {
     this.projectLinks = fb.group({
       demoUrl: ['', [Validators.required, Validators.pattern(reg)]],
       repoUrl: ['', [Validators.required, Validators.pattern(reg)]],
+    });
+
+    this.demoUrlWatcher = new Subject<string>();
+  }
+
+  ngOnInit(): void {
+    this.demoUrlWatcher.pipe(debounceTime(3000)).subscribe((weburl: string) => {
+      this.grab(weburl);
+      this.loading = true;
+      console.log(weburl);
+    });
+  }
+
+  grab(url: string) {
+    this.scrot.getScreenshot(url).subscribe((blob) => {
+      this.screenshot = URL.createObjectURL(blob);
+      this.loading = false;
     });
   }
 
@@ -54,6 +76,13 @@ export class ProjectUploadComponent {
   onSubmit() {
     if (this.projectForm.valid) {
       console.log(this.projectForm.value);
+    }
+  }
+
+  ondemoUrlInputChange() {
+    const demoUrl = this.projectLinks.get('demoUrl');
+    if (demoUrl?.valid) {
+      //this.demoUrlWatcher.next(demoUrl?.value);
     }
   }
 }
