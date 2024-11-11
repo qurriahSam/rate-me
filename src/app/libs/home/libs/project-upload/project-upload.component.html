@@ -159,7 +159,7 @@
         >
           <label>
             <span
-              class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium mb-1"
+              class="after:content-['*'] after:text-red-500 block text-sm font-medium mb-1"
             >
               Website:
             </span>
@@ -167,7 +167,7 @@
               name="project url"
               type="text"
               placeholder="https://example.com"
-              class="input input-bordered input-sm w-full"
+              class="input input-bordered w-full"
               formControlName="demoUrl"
               (input)="ondemoUrlInputChange()"
             />
@@ -193,7 +193,7 @@
           </label>
           <label>
             <span
-              class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium mb-1"
+              class="after:content-['*'] after:text-red-500 block text-sm font-medium mb-1"
             >
               Repository Url:
             </span>
@@ -226,7 +226,7 @@
           </label>
           <div class="container">
             <p
-              class="mb-1 text-sm font-medium after:content-['*'] after:ml-0.5 after:text-red-500"
+              class="mb-1 text-sm font-medium after:content-['*'] after:text-red-500"
             >
               Screenshot:
             </p>
@@ -235,7 +235,7 @@
             >
               @if(screenshot) {
               <img [src]="screenshot" class="" alt="" />
-              } @else if (true) {
+              } @else if (loading) {
               <span class="loading loading-ring loading-lg"></span>
               } @else {
               <img
@@ -273,6 +273,24 @@
             Preview & Submit
           </li>
         </ul>
+        <div>
+          <h1>project name</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
+            esse blanditiis enim deserunt illum voluptas numquam accusantium
+            dicta accusamus, neque laudantium quasi. Quas quod quos labore
+            doloremque? Omnis, quia pariatur?
+          </p>
+          <img
+            src="../../../../../assets/images/screenshot.png"
+            class=""
+            alt=""
+          />
+          <div class="container flex">
+            <button class="btn btn-outline">Demo Url</button>
+            <button class="btn btn-outline">Repository Url</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
