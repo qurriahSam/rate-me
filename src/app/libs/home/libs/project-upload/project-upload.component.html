@@ -3,7 +3,9 @@
   <span class="hidden md:inline">Upload Project</span>
 </button>
 <dialog id="my_modal_3" class="modal modal-bottom sm:modal-middle">
-  <div class="modal-box">
+  <div
+    class="modal-box !max-w-2xl lg:max-h-screen lg:h-[95vh] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+  >
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
         ✕
@@ -11,14 +13,23 @@
     </form>
     <div [ngSwitch]="page">
       <div *ngSwitchCase="'form'">
-        <ul class="steps w-full">
-          <li data-content="" class="step step-primary text-sm font-medium">
+        <ul class="steps w-full mb-5">
+          <li
+            data-content=""
+            class="step step-primary after:!h-4 font-medium text-sm"
+          >
             App Details
           </li>
-          <li data-content="" class="step text-sm font-medium">
+          <li
+            data-content=""
+            class="step after:!h-4 before:!h-1.5 font-medium text-sm"
+          >
             Links & Screenshot
           </li>
-          <li data-content="" class="step text-sm font-medium">
+          <li
+            data-content=""
+            class="step after:!h-4 before:!h-1.5 font-medium text-sm"
+          >
             Preview & Submit
           </li>
         </ul>
@@ -153,10 +164,7 @@
             Preview & Submit
           </li>
         </ul>
-        <form
-          [formGroup]="projectLinks"
-          class="h-80 overflow-y-auto p-2 lg:p-5"
-        >
+        <form [formGroup]="projectLinks" class="p-2 lg:p-5">
           <label>
             <span
               class="after:content-['*'] after:text-red-500 block text-sm font-medium mb-1"
@@ -221,7 +229,7 @@
               </span>
             </div>
             } @else {
-            <span class="block mb-7"></span>
+            <span class="block mb-3"></span>
             }
           </label>
           <div class="container">
@@ -247,7 +255,7 @@
             </div>
           </div>
         </form>
-        <div class="flex justify-between mt-2">
+        <div class="flex justify-between mt-5">
           <button class="btn max-w-40" (click)="changePage('form')">
             <span class="material-symbols-outlined"> arrow_left </span>
             <span class="">Back</span>
@@ -262,34 +270,98 @@
         </div>
       </div>
       <div *ngSwitchCase="'preview'">
-        <ul class="steps w-full">
-          <li data-content="" class="step step-primary text-sm font-medium">
+        <ul class="steps w-full mb-5">
+          <li
+            data-content=""
+            class="step step-primary after:!h-4 font-medium text-sm"
+          >
             App Details
           </li>
-          <li data-content="" class="step step-primary text-sm font-medium">
+          <li
+            data-content=""
+            class="step step-primary after:!h-4 before:!h-1.5 font-medium text-sm"
+          >
             Links & Screenshot
           </li>
-          <li data-content="" class="step step-primary text-sm font-medium">
+          <li
+            data-content=""
+            class="step step-primary after:!h-4 before:!h-1.5 font-medium text-sm"
+          >
             Preview & Submit
           </li>
         </ul>
-        <div>
-          <h1>project name</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-            esse blanditiis enim deserunt illum voluptas numquam accusantium
-            dicta accusamus, neque laudantium quasi. Quas quod quos labore
-            doloremque? Omnis, quia pariatur?
+        <div
+          class="px-6 p-3 border border-base-300 rounded-lg max-w-md mx-auto"
+        >
+          <h1 class="font-semibold mb-2">project name</h1>
+          <p class="text-sm mb-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga eaque
+            molestias sed, optio voluptatum odit sint itaque dicta commodi
+            cupiditate.
           </p>
           <img
             src="../../../../../assets/images/screenshot.png"
-            class=""
+            class="rounded-lg mb-2 w-96 mx-auto"
             alt=""
           />
-          <div class="container flex">
-            <button class="btn btn-outline">Demo Url</button>
-            <button class="btn btn-outline">Repository Url</button>
+          <div class="container flex justify-between mt-5">
+            <div class="rating rating-sm mt-1">
+              <input type="radio" name="rating-9" class="rating-hidden" />
+              <input
+                type="radio"
+                name="rating-9"
+                class="mask mask-star-2 bg-green-700"
+              />
+              <input
+                type="radio"
+                name="rating-9"
+                class="mask mask-star-2 bg-green-700"
+              />
+              <input
+                type="radio"
+                name="rating-9"
+                class="mask mask-star-2 bg-green-700"
+                checked
+              />
+              <input
+                type="radio"
+                name="rating-9"
+                class="mask mask-star-2 bg-green-700"
+              />
+              <input
+                type="radio"
+                name="rating-9"
+                class="mask mask-star-2 bg-green-700"
+              />
+            </div>
+            <div>
+              <button class="badge badge-outline p-3 mr-3">
+                Demo Url
+                <span class="material-symbols-outlined ml-1 text-sm">
+                  open_in_new
+                </span>
+              </button>
+              <button class="badge badge-outline p-3">
+                Repository Url
+                <span class="material-symbols-outlined ml-1 text-sm">
+                  open_in_new
+                </span>
+              </button>
+            </div>
           </div>
+        </div>
+        <div class="flex justify-between mt-7">
+          <button class="btn max-w-40" (click)="changePage('links')">
+            <span class="material-symbols-outlined"> arrow_left </span>
+            <span class="">Back</span>
+          </button>
+          <button
+            class="btn btn-primary max-w-40"
+            (click)="changePage('preview')"
+          >
+            <span>Submit</span>
+            <span class="material-symbols-outlined"> arrow_right </span>
+          </button>
         </div>
       </div>
     </div>
