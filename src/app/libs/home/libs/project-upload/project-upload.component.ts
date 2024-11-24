@@ -22,7 +22,7 @@ export class ProjectUploadComponent implements OnInit {
   projectLinks: FormGroup;
   screenshot?: string;
   demoUrlWatcher: Subject<string>;
-  page: 'form' | 'links' | 'preview' = 'links';
+  page: 'form' | 'links' | 'preview' = 'form';
   loading = false;
 
   constructor(private fb: FormBuilder, private scrot: ScreenshotOneService) {
@@ -45,14 +45,21 @@ export class ProjectUploadComponent implements OnInit {
     this.demoUrlWatcher.pipe(debounceTime(3000)).subscribe((weburl: string) => {
       this.grab(weburl);
       this.loading = true;
-      console.log(weburl);
     });
   }
 
   grab(url: string) {
-    this.scrot.getScreenshot(url).subscribe((blob) => {
-      this.screenshot = URL.createObjectURL(blob);
-      this.loading = false;
+    this.scrot.getScreenshot(url).subscribe({
+      next: (blob) => {
+        this.screenshot = URL.createObjectURL(blob);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+        this.projectLinks
+          .get('demoUrl')
+          ?.setErrors({ invalid: true, pattern: true });
+      },
     });
   }
 
@@ -74,15 +81,17 @@ export class ProjectUploadComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.projectForm.valid) {
-      console.log(this.projectForm.value);
-    }
+    console.log({
+      form: this.projectForm.value,
+      links: this.projectLinks.value,
+      image: this.screenshot,
+    });
   }
 
   ondemoUrlInputChange() {
     const demoUrl = this.projectLinks.get('demoUrl');
     if (demoUrl?.valid) {
-      //this.demoUrlWatcher.next(demoUrl?.value);
+      this.demoUrlWatcher.next(demoUrl?.value);
     }
   }
 }
