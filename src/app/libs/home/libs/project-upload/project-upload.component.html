@@ -244,6 +244,7 @@
               @if(screenshot) {
               <img [src]="screenshot" class="" alt="" />
               } @else if (loading) {
+
               <span class="loading loading-ring loading-lg"></span>
               } @else {
               <img
@@ -263,6 +264,7 @@
           <button
             class="btn btn-primary max-w-40"
             (click)="changePage('preview')"
+            [disabled]="projectLinks.invalid"
           >
             <span>Next</span>
             <span class="material-symbols-outlined"> arrow_right </span>
@@ -293,17 +295,16 @@
         <div
           class="px-6 p-3 border border-base-300 rounded-lg max-w-md mx-auto"
         >
-          <h1 class="font-semibold mb-2">project name</h1>
+          <h1 class="font-semibold mb-2">
+            {{ projectForm.get("title")?.value }}
+          </h1>
           <p class="text-sm mb-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga eaque
-            molestias sed, optio voluptatum odit sint itaque dicta commodi
-            cupiditate.
+            {{ projectForm.get("description")?.value }}
           </p>
-          <img
-            src="../../../../../assets/images/screenshot.png"
-            class="rounded-lg mb-2 w-96 mx-auto"
-            alt=""
-          />
+          @for(tag of tags.controls.slice(0,3); track tag) {
+          <span class="badge badge-primary p-3 mr-3 mb-2">{{ tag.value }}</span>
+          }
+          <img [src]="screenshot" class="rounded-lg mb-2 mx-auto" alt="" />
           <div class="container flex justify-between mt-5">
             <div class="rating rating-sm mt-1">
               <input type="radio" name="rating-9" class="rating-hidden" />
@@ -350,14 +351,17 @@
             </div>
           </div>
         </div>
-        <div class="flex justify-between mt-7">
+        <div class="flex justify-between mt-5">
           <button class="btn max-w-40" (click)="changePage('links')">
             <span class="material-symbols-outlined"> arrow_left </span>
             <span class="">Back</span>
           </button>
           <button
-            class="btn btn-primary max-w-40"
-            (click)="changePage('preview')"
+            class="btn btn-primary"
+            (click)="onSubmit()"
+            [disabled]="
+              !projectForm.valid || !projectLinks.valid || !screenshot
+            "
           >
             <span>Submit</span>
             <span class="material-symbols-outlined"> arrow_right </span>
