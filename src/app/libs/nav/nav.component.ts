@@ -7,7 +7,7 @@ import { User } from '../../models/loggedUser';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthAction } from '../../store/auth/actions';
-import { LocalStorageService } from '../../localStorageService/local-storage.service';
+import { LocalStorageService } from '../../services/localStorageService/local-storage.service';
 
 @Component({
   selector: 'app-nav',
