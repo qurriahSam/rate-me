@@ -49,6 +49,6 @@
   },
   "browser": {
     "crypto": false,
-    "stream": false
+    "process": false
   }
 }
