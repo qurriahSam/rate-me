@@ -21,6 +21,7 @@ export class ProjectUploadComponent implements OnInit {
   projectForm: FormGroup;
   projectLinks: FormGroup;
   screenshot?: string;
+  imageBlob?: Blob;
   demoUrlWatcher: Subject<string>;
   page: 'form' | 'links' | 'preview' = 'form';
   loading = false;
@@ -52,6 +53,7 @@ export class ProjectUploadComponent implements OnInit {
     this.scrot.getScreenshot(url).subscribe({
       next: (blob) => {
         this.screenshot = URL.createObjectURL(blob);
+        this.imageBlob = blob;
         this.loading = false;
       },
       error: (err) => {
@@ -84,7 +86,7 @@ export class ProjectUploadComponent implements OnInit {
     console.log({
       form: this.projectForm.value,
       links: this.projectLinks.value,
-      image: this.screenshot,
+      image: this.imageBlob,
     });
   }
 
