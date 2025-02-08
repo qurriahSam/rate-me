@@ -11,16 +11,19 @@ const initialState: ProjectStore = {
 
 export const projectsReducer = createReducer(
   initialState,
-  on(ProjectAction.loadProject, (_state) => ({ ..._state, isLoading: true })),
-  on(ProjectAction.uploadProject, (_state, props) => {
-    const { image, repoUrl, title, description, tags, demoUrl } = props;
+  on(ProjectAction.uploadProject, (_state) => ({ ..._state, isLoading: true })),
+  on(ProjectAction.uploadProjectSuccess, (_state, props) => {
+    const { image, repoUrl, title, description, tags, demoUrl, _id, userId } =
+      props;
     const nuProject = {
+      _id: _id,
       title: title,
       description: description,
       tags: tags,
       demoUrl: demoUrl,
       repoUrl: repoUrl,
       image: image,
+      userId: userId,
     };
     _state.userProjects.push(nuProject);
     return _state;
