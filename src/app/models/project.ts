@@ -1,10 +1,12 @@
 export interface Project {
+  _id: string;
   title: string;
   description: string;
   tags: string[];
   demoUrl: string;
   repoUrl: string;
-  image: Blob;
+  image: string;
+  userId: string;
 }
 
 export interface ProjectStore {
