@@ -25,7 +25,13 @@ export const projectsReducer = createReducer(
       image: image,
       userId: userId,
     };
-    _state.userProjects.push(nuProject);
-    return _state;
+    const modUserProjects = [..._state.userProjects, nuProject];
+    const modProjects = [..._state.projects, nuProject];
+    return {
+      ..._state,
+      projects: modProjects,
+      userProjects: modUserProjects,
+      isLoading: false,
+    };
   })
 );

@@ -9,6 +9,11 @@ import {
 } from '@angular/forms';
 import { debounceTime, filter, Subject } from 'rxjs';
 import { ScreenshotOneService } from '../../../../services/screenshotOne/screenshot-one.service';
+import { ImageUrlService } from '../../../../services/imageUrl/image-url.service';
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from '../../../../models/appState.interface';
+import { ProjectAction } from '../../../../store/projects/project-actions';
+import { registerUserSelector } from '../../../../store/auth/authSelectors';
 
 @Component({
   selector: 'app-project-upload',
@@ -25,8 +30,14 @@ export class ProjectUploadComponent implements OnInit {
   demoUrlWatcher: Subject<string>;
   page: 'form' | 'links' | 'preview' = 'form';
   loading = false;
+  userId?: string | null;
 
-  constructor(private fb: FormBuilder, private scrot: ScreenshotOneService) {
+  constructor(
+    private fb: FormBuilder,
+    private scrot: ScreenshotOneService,
+    private imageUrl: ImageUrlService,
+    private store: Store<AppStateInterface>
+  ) {
     const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.projectForm = fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
@@ -40,6 +51,9 @@ export class ProjectUploadComponent implements OnInit {
     });
 
     this.demoUrlWatcher = new Subject<string>();
+    this.store
+      .select(registerUserSelector)
+      .subscribe((user) => (this.userId = user.id));
   }
 
   ngOnInit(): void {
@@ -82,12 +96,29 @@ export class ProjectUploadComponent implements OnInit {
     this.page = newPage;
   }
 
-  onSubmit() {
-    console.log({
-      form: this.projectForm.value,
-      links: this.projectLinks.value,
-      image: this.imageBlob,
-    });
+  async onSubmit() {
+    if (this.imageBlob) {
+      try {
+        const imageUrl = await this.imageUrl.getUrl(this.imageBlob);
+        if (this.userId) {
+          this.store.dispatch(
+            ProjectAction.uploadProject({
+              title: this.projectForm.value.title,
+              description: this.projectForm.value.description,
+              tags: this.projectForm.value.tags,
+              demoUrl: this.projectLinks.value.demoUrl,
+              repoUrl: this.projectLinks.value.repoUrl,
+              image: imageUrl as string,
+              userId: this.userId,
+            })
+          );
+        } else {
+          throw new Error('invalid user id');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   ondemoUrlInputChange() {
