@@ -5,6 +5,9 @@ import {
   doc,
   Firestore,
   getDoc,
+  getDocs,
+  query,
+  where,
 } from '@angular/fire/firestore';
 import { Project } from '../../models/project';
 import { from, map, switchMap, tap } from 'rxjs';
@@ -33,5 +36,18 @@ export class ProjectService {
       ),
       tap(console.log)
     );
+  }
+
+  getAllProjects() {
+    return from(getDocs(collection(this.firestore, 'projects'))).pipe(
+      tap(console.log)
+    );
+  }
+  getMyProjects() {
+    const queryMyProjects = query(
+      collection(this.firestore, 'projects'),
+      where('capital', '==', true)
+    );
+    return from(getDocs(queryMyProjects));
   }
 }
