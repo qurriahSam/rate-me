@@ -29,6 +29,7 @@ import { LoginEffect } from './store/auth/login-effect';
 import { LogoutEffect } from './store/auth/logout-effect';
 import { ProjectUploadEffect } from './store/projects/project-upload-effect';
 import { projectsReducer } from './store/projects/projects-reducer';
+import { GetAllProjectsEffect } from './store/projects/get-all-projects-effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -68,6 +69,7 @@ export const appConfig: ApplicationConfig = {
       LoginEffect,
       LogoutEffect,
       ProjectUploadEffect,
+      GetAllProjectsEffect,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
