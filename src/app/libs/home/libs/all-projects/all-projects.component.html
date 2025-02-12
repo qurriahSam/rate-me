@@ -3,16 +3,17 @@
     <app-search></app-search>
     <app-project-upload></app-project-upload>
   </div>
+  @if(isLoading$ | async){
+  <p>loading...</p>
+  } @else{
   <div
     id="projectsDisplay"
     class="grid md:grid-cols-2 lg:grid-cols-3 md:auto-cols-auto gap-x-8 gap-y-10"
   >
-    <app-vote-card></app-vote-card>
-    <app-vote-card></app-vote-card>
-    <app-vote-card></app-vote-card>
-    <app-vote-card></app-vote-card>
-    <app-vote-card></app-vote-card>
-    <app-vote-card></app-vote-card>
-    <app-vote-card></app-vote-card>
+    @if(projects$ | async; as projects ){ @for(project of projects; track
+    project._id){
+    <app-vote-card [project]="project"></app-vote-card>
+    } }
   </div>
+  }
 </section>

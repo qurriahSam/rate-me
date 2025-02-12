@@ -16,6 +16,8 @@ export const ProjectAction = createActionGroup({
   events: {
     'Upload Project': props<IProject>(),
     'Upload Project Success': props<Project>(),
-    'Upload Project Error': props<{ error: String | null }>(),
+    'Project Error': props<{ error: String | null }>(),
+    'Get All Projects': emptyProps,
+    'Get All Projects Success': props<{ projects: Project[] }>(),
   },
 });

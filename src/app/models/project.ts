@@ -9,7 +9,7 @@ export interface Project {
   userId: string;
 }
 
-export interface ProjectStore {
+export interface ProjectStateInterface {
   isLoading: boolean;
   projects: Project[];
   userProjects: Project[];

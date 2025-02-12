@@ -4,9 +4,10 @@ import { ProjectService } from './projects.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, delay, map, merge, mergeMap, of, tap } from 'rxjs';
 import { Project } from '../../models/project';
+import { QuerySnapshot } from '@angular/fire/firestore';
 
 @Injectable()
-export class ProjectUploadEffect {
+export class GetAllProjectsEffect {
   constructor(
     private projectAction: Actions,
     private projectService: ProjectService
@@ -14,21 +15,24 @@ export class ProjectUploadEffect {
 
   project$ = createEffect(() => {
     return this.projectAction.pipe(
-      ofType('[Projects] Upload Project'),
-      mergeMap((project: Project) =>
-        this.projectService.addProject(project).pipe(
-          map((project) =>
-            ProjectAction.uploadProjectSuccess({
-              _id: project.id,
-              title: project.title,
-              description: project.description,
-              tags: project.tags,
-              demoUrl: project.demoUrl,
-              repoUrl: project.repoUrl,
-              image: project.imageUrl,
-              userId: project.userId,
-            })
-          ),
+      ofType('[Projects] Get All Projects'),
+      mergeMap(() =>
+        this.projectService.getAllProjects().pipe(
+          map((projectSnapshot: QuerySnapshot) => {
+            const projectArr = projectSnapshot.docs.map((doc) => doc.data());
+            const projectIds = projectSnapshot.docs.map((doc) => doc.id);
+            //console.log({ projectArr: projectArr, ids: projectIds });
+            let projectsWithIds = [];
+            for (let index = 0; index < projectArr.length; index++) {
+              projectsWithIds.push({
+                ...projectArr[index],
+                _id: projectIds[index],
+              });
+            }
+            return ProjectAction.getAllProjectsSuccess({
+              projects: projectsWithIds as Project[],
+            });
+          }),
           catchError((error) => {
             const errorTimeout$ = of(
               ProjectAction.projectError({ error: null })

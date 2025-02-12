@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import { ProjectAction } from './project-actions';
-import { ProjectStore } from '../../models/project';
+import { ProjectStateInterface } from '../../models/project';
 
-const initialState: ProjectStore = {
+const initialState: ProjectStateInterface = {
   isLoading: false,
   projects: [],
   userProjects: [],
@@ -33,5 +33,14 @@ export const projectsReducer = createReducer(
       userProjects: modUserProjects,
       isLoading: false,
     };
-  })
+  }),
+  on(ProjectAction.getAllProjects, (_state) => ({
+    ..._state,
+    isLoading: true,
+  })),
+  on(ProjectAction.getAllProjectsSuccess, (_state, action) => ({
+    ..._state,
+    projects: action.projects,
+    isLoading: false,
+  }))
 );
