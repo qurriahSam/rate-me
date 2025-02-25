@@ -64,21 +64,6 @@ export class ProjectUploadComponent implements OnInit {
   }
 
   grab(url: string) {
-    /*     this.scrot.getScreenshot(url).subscribe({
-      next: (blob) => {
-        this.imageUrl.getUrl(blob).subscribe((imageUrl) => {
-          this.screenshot = imageUrl;
-        });
-        this.imageBlob = blob;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.loading = false;
-        this.projectLinks
-          .get('demoUrl')
-          ?.setErrors({ invalid: true, pattern: true });
-      },
-    }); */
     this.scrot
       .getScreenshot(url)
       .pipe(switchMap((blob) => this.imageUrl.getUrl(blob)))
@@ -128,6 +113,10 @@ export class ProjectUploadComponent implements OnInit {
             userId: this.userId,
           })
         );
+        this.projectForm.reset();
+        this.projectLinks.reset();
+        this.tags.clear();
+        this.changePage('form');
       } else {
         throw new Error('invalid user id');
       }
