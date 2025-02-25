@@ -7,7 +7,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { debounceTime, filter, Subject } from 'rxjs';
+import { debounceTime, filter, Subject, switchMap } from 'rxjs';
 import { ScreenshotOneService } from '../../../../services/screenshotOne/screenshot-one.service';
 import { ImageUrlService } from '../../../../services/imageUrl/image-url.service';
 import { Store } from '@ngrx/store';
@@ -64,9 +64,11 @@ export class ProjectUploadComponent implements OnInit {
   }
 
   grab(url: string) {
-    this.scrot.getScreenshot(url).subscribe({
+    /*     this.scrot.getScreenshot(url).subscribe({
       next: (blob) => {
-        this.screenshot = URL.createObjectURL(blob);
+        this.imageUrl.getUrl(blob).subscribe((imageUrl) => {
+          this.screenshot = imageUrl;
+        });
         this.imageBlob = blob;
         this.loading = false;
       },
@@ -76,7 +78,22 @@ export class ProjectUploadComponent implements OnInit {
           .get('demoUrl')
           ?.setErrors({ invalid: true, pattern: true });
       },
-    });
+    }); */
+    this.scrot
+      .getScreenshot(url)
+      .pipe(switchMap((blob) => this.imageUrl.getUrl(blob)))
+      .subscribe({
+        next: (imageUrl) => {
+          this.screenshot = imageUrl;
+          this.loading = false;
+        },
+        error: (err) => {
+          this.loading = false;
+          this.projectLinks
+            .get('demoUrl')
+            ?.setErrors({ invalid: true, pattern: true });
+        },
+      });
   }
 
   get tags() {
@@ -96,27 +113,23 @@ export class ProjectUploadComponent implements OnInit {
     this.page = newPage;
   }
 
-  async onSubmit() {
-    if (this.imageBlob) {
-      try {
-        const imageUrl = await this.imageUrl.getUrl(this.imageBlob);
-        if (this.userId) {
-          this.store.dispatch(
-            ProjectAction.uploadProject({
-              title: this.projectForm.value.title,
-              description: this.projectForm.value.description,
-              tags: this.projectForm.value.tags,
-              demoUrl: this.projectLinks.value.demoUrl,
-              repoUrl: this.projectLinks.value.repoUrl,
-              image: imageUrl as string,
-              userId: this.userId,
-            })
-          );
-        } else {
-          throw new Error('invalid user id');
-        }
-      } catch (error) {
-        console.error(error);
+  onSubmit() {
+    if (this.projectForm.valid && this.projectLinks.valid) {
+      // const imageUrl = await this.imageUrl.getUrl(this.imageBlob);
+      if (this.userId && this.screenshot) {
+        this.store.dispatch(
+          ProjectAction.uploadProject({
+            title: this.projectForm.value.title,
+            description: this.projectForm.value.description,
+            tags: this.projectForm.value.tags,
+            demoUrl: this.projectLinks.value.demoUrl,
+            repoUrl: this.projectLinks.value.repoUrl,
+            image: this.screenshot,
+            userId: this.userId,
+          })
+        );
+      } else {
+        throw new Error('invalid user id');
       }
     }
   }

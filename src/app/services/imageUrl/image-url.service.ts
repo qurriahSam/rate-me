@@ -5,6 +5,7 @@ import {
   Storage,
   uploadBytes,
 } from '@angular/fire/storage';
+import { catchError, from, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +13,16 @@ import {
 export class ImageUrlService {
   constructor(private cloudStorage: Storage) {}
 
-  async getUrl(image: Blob) {
+  getUrl(image: Blob) {
     const randomId = Math.random().toString(36).substring(2);
     const imageRef = ref(this.cloudStorage, `projectImages/${randomId}`);
-    try {
-      await uploadBytes(imageRef, image);
-      const fetchUrl = await getDownloadURL(imageRef);
-      console.log('File uploaded successfully:', fetchUrl);
-      return fetchUrl;
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      return error;
-    }
+    return from(uploadBytes(imageRef, image)).pipe(
+      switchMap(() => from(getDownloadURL(imageRef))),
+      tap((fetchUrl) => console.log('File uploaded successfully:', fetchUrl)),
+      catchError((error) => {
+        console.error('Error uploading file:', error);
+        throw error;
+      })
+    );
   }
 }

@@ -17,6 +17,6 @@ export class ScreenshotOneService {
     const options = screenshotone.TakeOptions.url(siteUrl)
       .delay(3)
       .blockAds(true);
-    return from(this.client.take(options)).pipe(tap((blb) => console.log(blb)));
+    return from(this.client.take(options));
   }
 }

@@ -10,7 +10,16 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { Project } from '../../models/project';
-import { from, map, switchMap, tap } from 'rxjs';
+import {
+  catchError,
+  from,
+  map,
+  mergeMap,
+  of,
+  retry,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from '../../models/appState.interface';
 import { registerUserSelector } from '../auth/authSelectors';
@@ -23,18 +32,22 @@ export class ProjectService {
 
   addProject(project: Project) {
     return from(addDoc(collection(this.firestore, 'projects'), project)).pipe(
+      retry(3),
       switchMap((docRef) =>
         from(getDoc(doc(this.firestore, 'projects', docRef.id))).pipe(
+          retry(3),
           map((savedDoc) => {
-            if (savedDoc.exists()) {
-              return { _id: docRef.id, ...savedDoc.data() };
-            } else {
+            if (!savedDoc.exists()) {
               throw new Error('Document not found!');
             }
+            return { _id: docRef.id, ...savedDoc.data() } as Project;
           })
         )
       ),
-      tap(console.log)
+      catchError((error) => {
+        console.error('Error adding project:', error);
+        throw error;
+      })
     );
   }
 
@@ -43,10 +56,10 @@ export class ProjectService {
       tap(console.log)
     );
   }
-  getMyProjects() {
+  getUserProjects(userId: string) {
     const queryMyProjects = query(
       collection(this.firestore, 'projects'),
-      where('capital', '==', true)
+      where('userId', '==', userId)
     );
     return from(getDocs(queryMyProjects));
   }

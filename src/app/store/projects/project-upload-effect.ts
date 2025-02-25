@@ -4,6 +4,7 @@ import { ProjectService } from './projects.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, delay, map, merge, mergeMap, of, tap } from 'rxjs';
 import { Project } from '../../models/project';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class ProjectUploadEffect {
@@ -19,13 +20,13 @@ export class ProjectUploadEffect {
         this.projectService.addProject(project).pipe(
           map((project) =>
             ProjectAction.uploadProjectSuccess({
-              _id: project.id,
+              _id: project._id,
               title: project.title,
               description: project.description,
               tags: project.tags,
               demoUrl: project.demoUrl,
               repoUrl: project.repoUrl,
-              image: project.imageUrl,
+              image: project.image,
               userId: project.userId,
             })
           ),
