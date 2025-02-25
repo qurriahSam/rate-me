@@ -8,12 +8,12 @@ import { LoginUser } from '../../models/loggedUser';
 @Injectable()
 export class LoginEffect {
   constructor(
-    private _loginAction$: Actions,
+    private _loginAction: Actions,
     private _registerService$: RegisterService
   ) {}
 
   login$ = createEffect(() => {
-    return this._loginAction$.pipe(
+    return this._loginAction.pipe(
       ofType('[Auth] Login User'),
       mergeMap((credentials: LoginUser) =>
         this._registerService$.signIn(credentials).pipe(

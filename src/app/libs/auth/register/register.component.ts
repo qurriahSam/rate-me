@@ -18,7 +18,7 @@ import {
 } from '../../../store/auth/authSelectors';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../models/loggedUser';
-import { LocalStorageService } from '../../../localStorageService/local-storage.service';
+import { LocalStorageService } from '../../../services/localStorageService/local-storage.service';
 
 @Component({
   selector: 'app-register',

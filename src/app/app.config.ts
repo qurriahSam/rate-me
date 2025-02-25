@@ -14,6 +14,11 @@ import {
   provideDatabase,
   connectDatabaseEmulator,
 } from '@angular/fire/database';
+import {
+  provideStorage,
+  getStorage,
+  connectStorageEmulator,
+} from '@angular/fire/storage';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -22,6 +27,9 @@ import { authReducer } from './store/auth/auth-reducer';
 import { RegisterEffect } from './store/auth/register-effect';
 import { LoginEffect } from './store/auth/login-effect';
 import { LogoutEffect } from './store/auth/logout-effect';
+import { ProjectUploadEffect } from './store/projects/project-upload-effect';
+import { projectsReducer } from './store/projects/projects-reducer';
+import { GetAllProjectsEffect } from './store/projects/get-all-projects-effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -48,8 +56,21 @@ export const appConfig: ApplicationConfig = {
       }
       return db;
     }),
-    provideStore({ auth: authReducer }),
-    provideEffects([RegisterEffect, LoginEffect, LogoutEffect]),
+    provideStorage(() => {
+      const cloudStorage = getStorage();
+      if (!environment.production) {
+        connectStorageEmulator(cloudStorage, '127.0.0.1', 9199);
+      }
+      return cloudStorage;
+    }),
+    provideStore({ auth: authReducer, projects: projectsReducer }),
+    provideEffects([
+      RegisterEffect,
+      LoginEffect,
+      LogoutEffect,
+      ProjectUploadEffect,
+      GetAllProjectsEffect,
+    ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
