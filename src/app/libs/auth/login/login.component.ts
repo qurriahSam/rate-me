@@ -19,11 +19,10 @@ import { User } from '../../../models/loggedUser';
 import { LocalStorageService } from '../../../services/localStorageService/local-storage.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+    selector: 'app-login',
+    imports: [RouterLink, ReactiveFormsModule, CommonModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;

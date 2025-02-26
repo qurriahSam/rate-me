@@ -6,11 +6,10 @@ import { authErrorSelector } from '../../store/auth/authSelectors';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-alert',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './alert.component.html',
-  styleUrl: './alert.component.css',
+    selector: 'app-alert',
+    imports: [CommonModule],
+    templateUrl: './alert.component.html',
+    styleUrl: './alert.component.css'
 })
 export class AlertComponent {
   regError$: Observable<string | null>;

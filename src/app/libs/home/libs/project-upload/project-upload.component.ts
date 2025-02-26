@@ -16,11 +16,10 @@ import { ProjectAction } from '../../../../store/projects/project-actions';
 import { registerUserSelector } from '../../../../store/auth/authSelectors';
 
 @Component({
-  selector: 'app-project-upload',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './project-upload.component.html',
-  styleUrl: './project-upload.component.css',
+    selector: 'app-project-upload',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './project-upload.component.html',
+    styleUrl: './project-upload.component.css'
 })
 export class ProjectUploadComponent implements OnInit {
   projectForm: FormGroup;

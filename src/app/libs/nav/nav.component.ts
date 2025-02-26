@@ -10,11 +10,10 @@ import { AuthAction } from '../../store/auth/actions';
 import { LocalStorageService } from '../../services/localStorageService/local-storage.service';
 
 @Component({
-  selector: 'app-nav',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './nav.component.html',
-  styleUrl: './nav.component.css',
+    selector: 'app-nav',
+    imports: [CommonModule, RouterLink],
+    templateUrl: './nav.component.html',
+    styleUrl: './nav.component.css'
 })
 export class NavComponent {
   user$: Observable<User>;
