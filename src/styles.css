@@ -1,6 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #3da762;
+  --color-secondary: teal;
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: #1a9933;
+  --color-secondary: teal;
+}
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
