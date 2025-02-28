@@ -1,0 +1,32 @@
+<div class="flex">
+  <span
+    [ngClass]="{
+      'material-symbols-outlined': true,
+      'text-[20px]!': true,
+      'me-0.5': true,
+      'bottom-0': true,
+      'text-primary': theme === 'light',
+      'text-white': theme !== 'light'
+    }"
+  >
+    light_mode
+  </span>
+  <input
+    type="checkbox"
+    [checked]="theme === 'dark'"
+    class="toggle toggle-sm"
+    (click)="toggleTheme()"
+  />
+  <span
+    [ngClass]="{
+      'material-symbols-outlined': true,
+      'text-[20px]!': true,
+      'ms-0.5': true,
+      'me-4': true,
+      'text-primary': theme === 'dark',
+      'text-base-content/80': theme !== 'dark'
+    }"
+  >
+    dark_mode
+  </span>
+</div>
