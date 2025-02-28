@@ -1,0 +1,24 @@
+<h2>Product Details</h2>
+<p>Product ID: {{ projectId }}</p>
+@if(project$ | async; as project) {
+<div class="flex gap-4">
+  <div class="w-1/2">
+    <img [src]="project.image" alt="Product Image" class="rounded-xl" />
+  </div>
+  <div class="w-1/2">
+    <h2 class="text-2xl">{{ project.title }}</h2>
+    <p>{{ project.description }}</p>
+    <div class="rating">
+      <div class="mask mask-star-2 bg-primary" aria-label="1 star"></div>
+      <div class="mask mask-star-2 bg-primary" aria-label="2 star"></div>
+      <div class="mask mask-star-2 bg-primary" aria-label="3 star"></div>
+      <div class="mask mask-star-2 bg-primary" aria-label="4 star"></div>
+      <div class="mask mask-star-2 bg-primary" aria-label="5 star"></div>
+    </div>
+    <div class="flex gap-4">
+      <button class="btn btn-primary">Buy Now</button>
+      <button class="btn btn-outline">Add to Cart</button>
+    </div>
+  </div>
+</div>
+}
