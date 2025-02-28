@@ -14,16 +14,15 @@ import { ProjectAction } from '../../../../store/projects/project-actions';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-all-projects',
-  standalone: true,
-  imports: [
-    CommonModule,
-    VoteCardComponent,
-    SearchComponent,
-    ProjectUploadComponent,
-  ],
-  templateUrl: './all-projects.component.html',
-  styleUrl: './all-projects.component.css',
+    selector: 'app-all-projects',
+    imports: [
+        CommonModule,
+        VoteCardComponent,
+        SearchComponent,
+        ProjectUploadComponent,
+    ],
+    templateUrl: './all-projects.component.html',
+    styleUrl: './all-projects.component.css'
 })
 export class AllProjectsComponent implements OnInit {
   projects$: Observable<Project[]>;

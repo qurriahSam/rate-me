@@ -20,7 +20,7 @@
       </div>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow-sm"
       >
         <li><a>Home</a></li>
 
@@ -39,6 +39,7 @@
     </ul>
   </div>
   <div class="navbar-end">
+    <app-theme-toggle />
     <a class="btn btn-primary" routerLink="/dashboard">Dashboard</a>
   </div>
 </div>
@@ -129,7 +130,9 @@
     </button>
   </section>
 </div>
-<footer class="footer px-10 pt-10 bg-green-700 text-neutral-content">
+<footer
+  class="footer sm:footer-horizontal px-10 pt-10 bg-neutral text-neutral-content"
+>
   <aside>
     <img [src]="'assets/images/logoW.png'" class="max-w-32 lg:max-w-26" />
   </aside>
@@ -178,8 +181,10 @@
     </div>
   </nav>
 </footer>
-<div class="divider bg-green-700 pt-2 m-0"></div>
-<footer class="footer p-10 bg-green-700 text-neutral-content">
+<div class="divider bg-neutral pt-2 m-0"></div>
+<footer
+  class="footer sm:footer-horizontal p-10 bg-neutral text-neutral-content pb-5"
+>
   <nav>
     <h6 class="footer-title">About</h6>
     <a class="link link-hover">About Us</a>

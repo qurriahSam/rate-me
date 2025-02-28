@@ -11,7 +11,6 @@ import { LocalStorageService } from '../../services/localStorageService/local-st
 
 @Component({
   selector: 'app-nav',
-  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',

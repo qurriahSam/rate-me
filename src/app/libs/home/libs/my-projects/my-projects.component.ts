@@ -13,16 +13,15 @@ import { SearchComponent } from '../search/search.component';
 import { ProjectUploadComponent } from '../project-upload/project-upload.component';
 
 @Component({
-  selector: 'app-my-projects',
-  standalone: true,
-  imports: [
-    CommonModule,
-    VoteCardComponent,
-    SearchComponent,
-    ProjectUploadComponent,
-  ],
-  templateUrl: './my-projects.component.html',
-  styleUrl: './my-projects.component.css',
+    selector: 'app-my-projects',
+    imports: [
+        CommonModule,
+        VoteCardComponent,
+        SearchComponent,
+        ProjectUploadComponent,
+    ],
+    templateUrl: './my-projects.component.html',
+    styleUrl: './my-projects.component.css'
 })
 export class MyProjectsComponent {
   projects$: Observable<Project[]>;

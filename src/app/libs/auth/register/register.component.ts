@@ -21,11 +21,10 @@ import { User } from '../../../models/loggedUser';
 import { LocalStorageService } from '../../../services/localStorageService/local-storage.service';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+    selector: 'app-register',
+    imports: [RouterLink, ReactiveFormsModule, CommonModule],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;

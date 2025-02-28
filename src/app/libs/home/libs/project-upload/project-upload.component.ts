@@ -17,7 +17,6 @@ import { registerUserSelector } from '../../../../store/auth/authSelectors';
 
 @Component({
   selector: 'app-project-upload',
-  standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './project-upload.component.html',
   styleUrl: './project-upload.component.css',
@@ -42,7 +41,7 @@ export class ProjectUploadComponent implements OnInit {
     this.projectForm = fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(8)]],
-      addTag: '',
+      addTag: ['', [Validators.minLength(3)]],
       tags: this.fb.array([]),
     });
     this.projectLinks = fb.group({
