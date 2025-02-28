@@ -30,6 +30,8 @@ import { LogoutEffect } from './store/auth/logout-effect';
 import { ProjectUploadEffect } from './store/projects/project-upload-effect';
 import { projectsReducer } from './store/projects/projects-reducer';
 import { GetAllProjectsEffect } from './store/projects/get-all-projects-effect';
+import { viewProjectReducer } from './store/view-project/view-project-reducer';
+import { GetProjectEffect } from './store/view-project/get-project-effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -63,13 +65,18 @@ export const appConfig: ApplicationConfig = {
       }
       return cloudStorage;
     }),
-    provideStore({ auth: authReducer, projects: projectsReducer }),
+    provideStore({
+      auth: authReducer,
+      projects: projectsReducer,
+      viewProject: viewProjectReducer,
+    }),
     provideEffects([
       RegisterEffect,
       LoginEffect,
       LogoutEffect,
       ProjectUploadEffect,
       GetAllProjectsEffect,
+      GetProjectEffect,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],

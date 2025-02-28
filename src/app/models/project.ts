@@ -15,3 +15,9 @@ export interface ProjectStateInterface {
   userProjects: Project[];
   error: null | string;
 }
+
+export interface ViewProjectStateInterface {
+  project: Project | null;
+  isLoading: boolean;
+  error: null | string;
+}

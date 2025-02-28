@@ -63,4 +63,19 @@ export class ProjectService {
     );
     return from(getDocs(queryMyProjects));
   }
+
+  getProjectById(id: string) {
+    return from(getDoc(doc(this.firestore, 'projects', id))).pipe(
+      map((doc) => {
+        if (!doc.exists()) {
+          throw new Error('Document not found!');
+        }
+        return { _id: id, ...doc.data() } as Project;
+      }),
+      catchError((error) => {
+        console.error('Error fetching project:', error);
+        throw error;
+      })
+    );
+  }
 }
