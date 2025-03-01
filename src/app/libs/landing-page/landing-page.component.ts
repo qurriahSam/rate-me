@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { VoteCardComponent } from '../home/libs/vote-card/vote-card.component';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../services/themeChange/theme-service.service';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
