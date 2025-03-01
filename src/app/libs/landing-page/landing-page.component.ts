@@ -7,7 +7,7 @@ import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [RouterLink, VoteCardComponent, CommonModule, ThemeToggleComponent],
+  imports: [RouterLink, CommonModule, ThemeToggleComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.css',
 })
