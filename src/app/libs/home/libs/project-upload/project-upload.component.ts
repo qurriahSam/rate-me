@@ -110,6 +110,7 @@ export class ProjectUploadComponent implements OnInit {
             repoUrl: this.projectLinks.value.repoUrl,
             image: this.screenshot,
             userId: this.userId,
+            ratings: [],
           })
         );
         this.projectForm.reset();

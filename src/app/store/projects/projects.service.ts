@@ -7,6 +7,7 @@ import {
   getDoc,
   getDocs,
   query,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
 import { Project } from '../../models/project';
@@ -74,6 +75,19 @@ export class ProjectService {
       }),
       catchError((error) => {
         console.error('Error fetching project:', error);
+        throw error;
+      })
+    );
+  }
+
+  updateProject(project: Project) {
+    const projectDoc = doc(this.firestore, `projects/${project._id}`);
+
+    return from(updateDoc(projectDoc, { ...project })).pipe(
+      map(() => project),
+      tap(console.log),
+      catchError((error) => {
+        console.error('Error updating project:', error);
         throw error;
       })
     );

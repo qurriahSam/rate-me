@@ -7,6 +7,7 @@ export interface Project {
   repoUrl: string;
   image: string;
   userId: string;
+  ratings: { id: string; rate: number }[];
 }
 
 export interface ProjectStateInterface {

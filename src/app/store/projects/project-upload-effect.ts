@@ -28,6 +28,7 @@ export class ProjectUploadEffect {
               repoUrl: project.repoUrl,
               image: project.image,
               userId: project.userId,
+              ratings: project.ratings,
             })
           ),
           catchError((error) => {

@@ -24,5 +24,34 @@ export const viewProjectReducer = createReducer(
     ...state,
     isLoading: false,
     error,
-  }))
+  })),
+  on(viewProjectAction.updateProject, (state) => ({
+    ...state,
+    isLoading: true,
+    error: null,
+  })),
+  on(viewProjectAction.updateProjectSuccess, (state, { project }) => ({
+    ...state,
+    isLoading: false,
+    project,
+  })),
+  on(viewProjectAction.updateRating, (state, action) => {
+    if (!state.project) {
+      return state;
+    }
+
+    const ratings = state.project.ratings || [];
+    const newRating = {
+      id: action.id,
+      rate: action.rate,
+    };
+
+    return {
+      ...state,
+      project: {
+        ...state.project,
+        ratings: [...ratings, newRating],
+      },
+    };
+  })
 );

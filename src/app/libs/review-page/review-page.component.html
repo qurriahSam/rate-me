@@ -1,24 +1,112 @@
-<h2>Product Details</h2>
-<p>Product ID: {{ projectId }}</p>
-@if(project$ | async; as project) {
-<div class="flex gap-4">
-  <div class="w-1/2">
-    <img [src]="project.image" alt="Product Image" class="rounded-xl" />
-  </div>
-  <div class="w-1/2">
-    <h2 class="text-2xl">{{ project.title }}</h2>
-    <p>{{ project.description }}</p>
-    <div class="rating">
+<app-nav />
+<section class="bg-base-200 pt-7">
+  @if(project) {
+
+  <div class="container mx-auto p-6 md:max-w-5xl md:p-10 bg-base-100 border">
+    <div class="">
+      <h2 class="text-2xl font-bold mb-2">{{ project.title }}</h2>
+      <div class="divider"></div>
+
+      <p class="mb-2">{{ project.description }}</p>
+      <p class="mb-2"><span class="font-semibold">By:</span> Username</p>
+      <div class="flex gap-2">
+        @if(project.tags.length > 0) { @for(tag of project.tags; track tag) {
+        <div class="badge badge-primary">{{ tag }}</div>
+        } }
+      </div>
+      <div class="my-5">
+        <img [src]="project.image" alt="Product Image" class="rounded-xl" />
+      </div>
+    </div>
+    <div class="rating mb-3">
       <div class="mask mask-star-2 bg-primary" aria-label="1 star"></div>
       <div class="mask mask-star-2 bg-primary" aria-label="2 star"></div>
       <div class="mask mask-star-2 bg-primary" aria-label="3 star"></div>
       <div class="mask mask-star-2 bg-primary" aria-label="4 star"></div>
       <div class="mask mask-star-2 bg-primary" aria-label="5 star"></div>
     </div>
-    <div class="flex gap-4">
-      <button class="btn btn-primary">Buy Now</button>
-      <button class="btn btn-outline">Add to Cart</button>
+    <div class="">
+      <div class="flex gap-4">
+        <button class="btn btn-soft">
+          Demo Url
+          <span class="material-symbols-outlined text-xs"> open_in_new </span>
+        </button>
+        <button class="btn btn-soft">
+          Repository Url
+          <span class="material-symbols-outlined ml-1 text-sm">
+            open_in_new
+          </span>
+        </button>
+        <button class="btn btn-soft" (click)="rateProject.showModal()">
+          Rate
+          <span class="material-symbols-outlined ml-1 text-sm"> kid_star </span>
+        </button>
+      </div>
     </div>
   </div>
-</div>
-}
+
+  <dialog #rateProject class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          ✕
+        </button>
+      </form>
+      <h3 class="text-xl font-bold text-center">Rate</h3>
+      <div class="divider"></div>
+      <form #rateForm="ngForm" (ngSubmit)="submitForm(rateForm)">
+        <div class="rating rating-xl flex justify-center gap-2 my-5">
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="1 star"
+            value="1"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="2 star"
+            value="2"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="3 star"
+            value="3"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="4 star"
+            value="4"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="5 star"
+            value="5"
+            [(ngModel)]="rating"
+            required
+          />
+        </div>
+        <div class="flex justify-end">
+          <button class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+  }
+</section>

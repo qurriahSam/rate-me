@@ -24,6 +24,7 @@ export const projectsReducer = createReducer(
       repoUrl: repoUrl,
       image: image,
       userId: userId,
+      ratings: [],
     };
     const modUserProjects = [..._state.userProjects, nuProject];
     const modProjects = [..._state.projects, nuProject];

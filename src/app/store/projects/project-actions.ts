@@ -9,6 +9,7 @@ interface IProject {
   repoUrl: string;
   image: string;
   userId: string;
+  ratings: { id: string; rate: number }[];
 }
 
 export const ProjectAction = createActionGroup({
