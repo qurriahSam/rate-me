@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from '../../models/appState.interface';
 import { viewProjectAction } from '../../store/view-project/view-project-actions';
-import { Observable, of } from 'rxjs';
-import { viewProjectSelector } from '../../store/view-project/view-project-selectors';
+import { first, Observable, of, Subscription } from 'rxjs';
+import {
+  viewProjectIsLoadingSelector,
+  viewProjectSelector,
+} from '../../store/view-project/view-project-selectors';
 import { Project } from '../../models/project';
 import { CommonModule } from '@angular/common';
 import { NavComponent } from '../nav/nav.component';
@@ -16,58 +19,96 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './review-page.component.html',
   styleUrl: './review-page.component.css',
 })
-export class ReviewPageComponent implements OnInit {
+export class ReviewPageComponent implements OnInit, OnDestroy {
   projectId: string | null = null;
   store: Store<AppStateInterface>;
   project?: Project | null = null;
   rating: number | null = null;
   averageRating?: number;
+  isRated = false;
+  isLoading$: Observable<boolean>;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, store: Store<AppStateInterface>) {
-    this.route.paramMap.subscribe((params) => {
-      this.projectId = params.get('_id');
-      console.log('Project ID:', this.projectId);
-    });
     this.store = store;
-    this.store.select(viewProjectSelector).subscribe((p) => {
-      this.project = p;
-    });
+    this.isLoading$ = this.store.select(viewProjectIsLoadingSelector);
   }
 
   ngOnInit(): void {
-    if (!this.projectId) {
-      console.error('No product ID found!');
-      return;
-    }
-    this.store.dispatch(viewProjectAction.getProject({ id: this.projectId }));
-    this.calculateAverageRating();
+    const routeSub = this.route.paramMap.subscribe((params) => {
+      this.projectId = params.get('_id');
+      if (this.projectId) {
+        this.store.dispatch(
+          viewProjectAction.getProject({ id: this.projectId })
+        );
+      } else {
+        console.error('No project ID found!');
+      }
+    });
+    this.subscriptions.add(routeSub);
+
+    const projectSub = this.store.select(viewProjectSelector).subscribe((p) => {
+      this.project = p;
+      this.calculateAverageRating();
+      const authIdSub = this.store
+        .select((state) => state.auth.loggedUser.id)
+        .subscribe((raterId) => {
+          console.log(this.project, raterId);
+          if (raterId && this.project) {
+            this.project.ratings.forEach((r) => {
+              if (r.id === raterId) {
+                this.isRated = true;
+                console.log('You have already rated this project!');
+              }
+            });
+          }
+        });
+      this.subscriptions.add(authIdSub);
+    });
+    this.subscriptions.add(projectSub);
+
+    const authIdSub = this.store
+      .select((state) => state.auth.loggedUser.id)
+      .subscribe((raterId) => {
+        console.log(this.project, raterId);
+        if (raterId && this.project) {
+          this.project.ratings.forEach((r) => {
+            console.log(r.id, raterId);
+            if (r.id === raterId) {
+              this.isRated = true;
+              console.log('You have already rated this project!');
+            }
+          });
+        }
+      });
+    this.subscriptions.add(authIdSub);
   }
 
   calculateAverageRating(): void {
-    if (!this.project) {
+    if (
+      !this.project ||
+      !Array.isArray(this.project.ratings) ||
+      this.project.ratings.length === 0
+    ) {
+      this.averageRating = 0;
       return;
     }
-    let totalRating = this.project?.ratings.reduce((acc, r) => acc + r.rate, 0);
-    let rating = totalRating
-      ? totalRating / Math.round(this.project?.ratings.length * 10) / 10
-      : 0;
-    this.averageRating = this.customRound(rating);
+
+    const totalRating = this.project.ratings.reduce(
+      (total, { rate }) => total + Number(rate),
+      0
+    );
+    this.averageRating = this.customRound(
+      totalRating / this.project.ratings.length
+    );
   }
 
-  customRound(number: number) {
-    const integerPart = Math.floor(number);
-
-    const decimalPart = number - integerPart;
-
-    if (decimalPart >= 0.5) {
-      return integerPart + 0.5;
-    } else {
-      return integerPart;
-    }
+  customRound(num: number): number {
+    return Math.floor(num) + (num - Math.floor(num) >= 0.5 ? 0.5 : 0);
   }
 
   submitForm(form: any): void {
-    this.store
+    const authSub = this.store
       .select((state) => state.auth.loggedUser.id)
       .subscribe((raterId) => {
         if (raterId && this.rating && this.project) {
@@ -76,7 +117,9 @@ export class ReviewPageComponent implements OnInit {
               project: {
                 ...this.project,
                 ratings: [
-                  ...this.project.ratings,
+                  ...(Array.isArray(this.project.ratings)
+                    ? this.project.ratings
+                    : []),
                   { id: raterId, rate: this.rating },
                 ],
               },
@@ -84,6 +127,10 @@ export class ReviewPageComponent implements OnInit {
           );
         }
       });
-    //console.log('project:', project);
+    this.subscriptions.add(authSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

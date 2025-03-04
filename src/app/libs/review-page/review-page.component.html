@@ -18,12 +18,68 @@
         <img [src]="project.image" alt="Product Image" class="rounded-xl" />
       </div>
     </div>
-    <div class="rating mb-3">
-      <div class="mask mask-star-2 bg-primary" aria-label="1 star"></div>
-      <div class="mask mask-star-2 bg-primary" aria-label="2 star"></div>
-      <div class="mask mask-star-2 bg-primary" aria-label="3 star"></div>
-      <div class="mask mask-star-2 bg-primary" aria-label="4 star"></div>
-      <div class="mask mask-star-2 bg-primary" aria-label="5 star"></div>
+    <div class="rating rating-lg rating-half mb-3">
+      <input type="radio" name="rating-11" class="rating-hidden" />
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="0.5 star"
+        [attr.aria-current]="averageRating === 0.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="1 star"
+        [attr.aria-current]="averageRating === 1 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="1.5 star"
+        [attr.aria-current]="averageRating === 1.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="2 star"
+        [attr.aria-current]="averageRating === 2 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="2.5 star"
+        [attr.aria-current]="averageRating === 2.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="3 star"
+        [attr.aria-current]="averageRating === 3 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="3.5 star"
+        [attr.aria-current]="averageRating === 3.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="4 star"
+        [attr.aria-current]="averageRating === 4 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="4.5 star"
+        [attr.aria-current]="averageRating === 4.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="5 star"
+        [attr.aria-current]="averageRating === 5 ? 'true' : 'false'"
+      ></div>
     </div>
     <div class="">
       <div class="flex gap-4">
@@ -55,6 +111,9 @@
       <h3 class="text-xl font-bold text-center">Rate</h3>
       <div class="divider"></div>
       <form #rateForm="ngForm" (ngSubmit)="submitForm(rateForm)">
+        <p [hidden]="!isRated" class="text-center">
+          You have rated this project
+        </p>
         <div class="rating rating-xl flex justify-center gap-2 my-5">
           <input
             type="radio"
@@ -103,7 +162,11 @@
           />
         </div>
         <div class="flex justify-end">
-          <button class="btn btn-primary">Submit</button>
+          @if(isLoading$ | async) {
+          <button class="btn btn-primary" disabled>Loading...</button>
+          } @else {
+          <button class="btn btn-primary" [disabled]="isRated">Submit</button>
+          }
         </div>
       </form>
     </div>
