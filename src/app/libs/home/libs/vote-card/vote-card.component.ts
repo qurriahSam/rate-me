@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Project } from '../../../../models/project';
 import { RouterLink } from '@angular/router';
 
@@ -8,6 +8,11 @@ import { RouterLink } from '@angular/router';
   templateUrl: './vote-card.component.html',
   styleUrl: './vote-card.component.css',
 })
-export class VoteCardComponent {
+export class VoteCardComponent implements OnInit {
   @Input() project!: Project;
+  description?: string;
+  ngOnInit(): void {
+    console.log(this.project);
+    this.description = this.project.description.slice(0, 100) + '...';
+  }
 }
