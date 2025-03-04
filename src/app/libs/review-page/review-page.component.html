@@ -83,16 +83,26 @@
     </div>
     <div class="">
       <div class="flex gap-4">
-        <button class="btn btn-soft">
+        <a
+          class="btn btn-soft"
+          href="{{ project.demoUrl }}"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Demo Url
           <span class="material-symbols-outlined text-xs"> open_in_new </span>
-        </button>
-        <button class="btn btn-soft">
+        </a>
+        <a
+          class="btn btn-soft"
+          href="{{ project.repoUrl }}"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           Repository Url
           <span class="material-symbols-outlined ml-1 text-sm">
             open_in_new
           </span>
-        </button>
+        </a>
         <button class="btn btn-soft" (click)="rateProject.showModal()">
           Rate
           <span class="material-symbols-outlined ml-1 text-sm"> kid_star </span>
