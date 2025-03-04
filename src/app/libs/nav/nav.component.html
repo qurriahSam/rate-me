@@ -1,4 +1,4 @@
-<div class="navbar mb-10 container mx-auto">
+<div class="navbar container mx-auto">
   <div class="flex-1">
     <img [src]="'assets/images/logo.png'" class="max-w-32 lg:max-w-26" alt="" />
   </div>
@@ -9,9 +9,9 @@
   <div *ngIf="user.id" class="flex flex-none gap-2">
     <div class="">
       <ul class="menu menu-horizontal px-1">
-        <li><a routerLink="all-projects">all projects</a></li>
+        <li><a routerLink="/dashboard/all-projects">all projects</a></li>
         <li>
-          <a routerLink="my-projects">my projects</a>
+          <a routerLink="/dashboard/my-projects">my projects</a>
         </li>
       </ul>
     </div>
