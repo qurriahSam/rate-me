@@ -7,6 +7,7 @@ import { MyProjectsComponent } from './libs/home/libs/my-projects/my-projects.co
 import { AllProjectsComponent } from './libs/home/libs/all-projects/all-projects.component';
 import { ReviewPageComponent } from './libs/review-page/review-page.component';
 import { authGuard } from './guards/auth-guard';
+import { EditPageComponent } from './libs/home/libs/edit-page/edit-page.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -18,10 +19,19 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'edit/:_id',
+    component: EditPageComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: 'my-projects', component: MyProjectsComponent },
+      {
+        path: 'my-projects',
+        component: MyProjectsComponent,
+        canActivate: [authGuard],
+      },
       { path: 'all-projects', component: AllProjectsComponent },
 
       { path: '', redirectTo: 'all-projects', pathMatch: 'full' },

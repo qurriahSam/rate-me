@@ -53,5 +53,14 @@ export const projectsReducer = createReducer(
     ..._state,
     projects: action.projects,
     isLoading: false,
+  })),
+  on(ProjectAction.getUserProjects, (_state) => ({
+    ..._state,
+    isLoading: true,
+  })),
+  on(ProjectAction.getUserProjectsSuccess, (_state, action) => ({
+    ..._state,
+    userProjects: action.projects,
+    isLoading: false,
   }))
 );

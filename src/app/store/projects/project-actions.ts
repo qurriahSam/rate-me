@@ -21,7 +21,7 @@ export const ProjectAction = createActionGroup({
     'Project Error': props<{ error: String | null }>(),
     'Get All Projects': emptyProps,
     'Get All Projects Success': props<{ projects: Project[] }>(),
-    'Get User Projects': props<String>(),
+    'Get User Projects': props<{ userId: String }>(),
     'Get User Projects Success': props<{ projects: Project[] }>(),
   },
 });

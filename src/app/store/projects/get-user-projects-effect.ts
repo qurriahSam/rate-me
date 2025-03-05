@@ -16,8 +16,9 @@ export class GetUserProjectsEffect {
   project$ = createEffect(() => {
     return this.projectAction.pipe(
       ofType('[Projects] Get User Projects'),
-      mergeMap((userId: string) =>
+      mergeMap(({ userId }) =>
         this.projectService.getUserProjects(userId).pipe(
+          tap(console.log),
           map((projectSnapshot: QuerySnapshot) => {
             const projectArr = projectSnapshot.docs.map((doc) => doc.data());
             const projectIds = projectSnapshot.docs.map((doc) => doc.id);
@@ -29,7 +30,8 @@ export class GetUserProjectsEffect {
                 _id: projectIds[index],
               });
             }
-            return ProjectAction.getAllProjectsSuccess({
+            console.log(projectsWithIds);
+            return ProjectAction.getUserProjectsSuccess({
               projects: projectsWithIds as Project[],
             });
           }),
