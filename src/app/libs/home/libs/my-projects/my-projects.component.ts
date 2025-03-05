@@ -14,12 +14,13 @@ import { ProjectUploadComponent } from '../project-upload/project-upload.compone
 import { ProjectAction } from '../../../../store/projects/project-actions';
 import { User } from '../../../../models/loggedUser';
 import { registerUserSelector } from '../../../../store/auth/authSelectors';
+import { EditCardComponent } from '../edit-card/edit-card.component';
 
 @Component({
   selector: 'app-my-projects',
   imports: [
     CommonModule,
-    VoteCardComponent,
+    EditCardComponent,
     SearchComponent,
     ProjectUploadComponent,
   ],

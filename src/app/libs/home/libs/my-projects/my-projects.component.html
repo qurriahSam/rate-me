@@ -9,7 +9,7 @@
   >
     @if(projects$ | async; as projects ){ @for(project of projects; track
     project._id){
-    <app-vote-card [project]="project"></app-vote-card>
+    <app-edit-card [project]="project"></app-edit-card>
     } }
   </div>
 </section>
