@@ -33,7 +33,7 @@ This app includes **authentication** for logging in and out, ensuring secure acc
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/project-rating-app.git
+git clone https://github.com/qurriahSam/project-rating-app.git
 cd project-rating-app
 ```
 
@@ -143,7 +143,7 @@ This project is **open-source** and available under the **MIT License**.
 
 ---
 
-### 👨‍💻 Developed by **Your Name**
+### 👨‍💻 Developed by **Sam Kuria**
 
 🚀 Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/sam-kuria/).
 
