@@ -24,9 +24,9 @@ This app includes **authentication** for logging in and out, ensuring secure acc
 
 ## 📸 Screenshots
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/qurriahSam/shoppingify/main/src/assets/screenshot.png" alt="Rate-me" width="85%"/>
-  </p>
+<p align="">
+  <img src="./src/assets/images/rate-me.png" alt="Rate-me" width="85%"/>
+</p>
 
 ## 🔧 Installation & Setup
 
