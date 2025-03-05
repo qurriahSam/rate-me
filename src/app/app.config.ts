@@ -33,6 +33,7 @@ import { GetAllProjectsEffect } from './store/projects/get-all-projects-effect';
 import { viewProjectReducer } from './store/view-project/view-project-reducer';
 import { GetProjectEffect } from './store/view-project/get-project-effect';
 import { UpdateProjectEffect } from './store/view-project/update-project-effect';
+import { GetUserProjectsEffect } from './store/projects/get-user-projects-effect';
 
 const localIP = import.meta.env['NG_APP_LOCAL_IP'];
 export const appConfig: ApplicationConfig = {
@@ -80,6 +81,7 @@ export const appConfig: ApplicationConfig = {
       GetAllProjectsEffect,
       GetProjectEffect,
       UpdateProjectEffect,
+      GetUserProjectsEffect,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
