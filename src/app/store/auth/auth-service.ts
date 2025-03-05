@@ -5,6 +5,7 @@ import {
   Auth,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from '@angular/fire/auth';
 import { from, throwError } from 'rxjs';
 
@@ -23,7 +24,11 @@ export class RegisterService {
         this.auth,
         credentials.email,
         credentials.password
-      )
+      ).then((userCredential) => {
+        return updateProfile(userCredential.user, {
+          displayName: credentials.username,
+        }).then(() => userCredential);
+      })
     );
   }
 

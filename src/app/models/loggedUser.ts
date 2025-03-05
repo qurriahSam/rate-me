@@ -12,6 +12,7 @@ export interface LoginUser {
 export interface User {
   email: string | null;
   id: string | null;
+  username: string | null;
 }
 
 export interface UserStateInterface {

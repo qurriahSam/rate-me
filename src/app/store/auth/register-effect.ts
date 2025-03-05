@@ -27,11 +27,13 @@ export class RegisterEffect {
             });
             console.log('Document written with ID: ', docRef.id);
           }),
+          tap((user) => console.log(user)),
 
           map((user) =>
             AuthAction.registrationSuccess({
               id: user.user.uid,
               email: user.user.email,
+              username: user.user.displayName,
             })
           ),
           catchError((error) => {

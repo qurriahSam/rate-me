@@ -17,10 +17,12 @@ export class LoginEffect {
       ofType('[Auth] Login User'),
       mergeMap((credentials: LoginUser) =>
         this._registerService$.signIn(credentials).pipe(
+          tap((user) => console.log(user)),
           map((user) =>
             AuthAction.registrationSuccess({
               id: user.user.uid,
               email: user.user.email,
+              username: user.user.displayName,
             })
           ),
           catchError((error) => {
@@ -28,7 +30,7 @@ export class LoginEffect {
               AuthAction.registrationError({ error: null })
             ).pipe(delay(2000));
             const postError$ = of(
-              AuthAction.registrationError({ error: error.code })
+              AuthAction.registrationError({ error: 'Wrong email or password' })
             );
             return merge(postError$, errorTimeout$);
           })

@@ -8,6 +8,7 @@ export interface Project {
   image: string;
   userId: string;
   ratings: { id: string; rate: number }[];
+  displayName: string;
 }
 
 export interface ProjectStateInterface {

@@ -7,10 +7,10 @@ import { AppStateInterface } from './models/appState.interface';
 import { AuthAction } from './store/auth/actions';
 
 @Component({
-    selector: 'app-root',
-    imports: [RouterOutlet, AlertComponent],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css'
+  selector: 'app-root',
+  imports: [RouterOutlet, AlertComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'chat-grp-ai';
@@ -21,9 +21,14 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const id = this.localStorage.getItem('id');
     const email = this.localStorage.getItem('email');
-    if (id && email) {
+    const username = this.localStorage.getItem('username');
+    if (id && email && username) {
       this.store.dispatch(
-        AuthAction.registrationSuccess({ id: id, email: email })
+        AuthAction.registrationSuccess({
+          id: id,
+          email: email,
+          username: username,
+        })
       );
     }
   }

@@ -8,7 +8,9 @@
       <div class="divider"></div>
 
       <p class="mb-2">{{ project.description }}</p>
-      <p class="mb-2"><span class="font-semibold">By:</span> Username</p>
+      <p class="mb-2">
+        <span class="font-semibold">By:</span> {{ project.displayName }}
+      </p>
       <div class="flex gap-2">
         @if(project.tags.length > 0) { @for(tag of project.tags; track tag) {
         <div class="badge badge-primary">{{ tag }}</div>

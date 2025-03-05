@@ -16,7 +16,13 @@ export class LogoutEffect {
       ofType('[Auth] Logout User'),
       mergeMap(() =>
         this._registerService$.logout().pipe(
-          map(() => AuthAction.registrationSuccess({ id: null, email: null })),
+          map(() =>
+            AuthAction.registrationSuccess({
+              id: null,
+              email: null,
+              username: null,
+            })
+          ),
           catchError((error) => {
             const errorTimeout$ = of(
               AuthAction.registrationError({ error: null })
