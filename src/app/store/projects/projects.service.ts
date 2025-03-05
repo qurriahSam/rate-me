@@ -7,6 +7,7 @@ import {
   getDoc,
   getDocs,
   query,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
 import { Project } from '../../models/project';
@@ -62,5 +63,33 @@ export class ProjectService {
       where('userId', '==', userId)
     );
     return from(getDocs(queryMyProjects));
+  }
+
+  getProjectById(id: string) {
+    return from(getDoc(doc(this.firestore, 'projects', id))).pipe(
+      map((doc) => {
+        if (!doc.exists()) {
+          throw new Error('Document not found!');
+        }
+        return { _id: id, ...doc.data() } as Project;
+      }),
+      catchError((error) => {
+        console.error('Error fetching project:', error);
+        throw error;
+      })
+    );
+  }
+
+  updateProject(project: Project) {
+    const projectDoc = doc(this.firestore, `projects/${project._id}`);
+
+    return from(updateDoc(projectDoc, { ...project })).pipe(
+      map(() => project),
+      tap(console.log),
+      catchError((error) => {
+        console.error('Error updating project:', error);
+        throw error;
+      })
+    );
   }
 }

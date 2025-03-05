@@ -1,9 +1,9 @@
-<div
+<a
   class="card bg-base-100 border border-slate-200 shadow-xl hover:border-slate-400 hover:cursor-pointer"
-  (click)="vote_card_modal.showModal()"
+  [routerLink]="['/review', project._id]"
 >
   <div class="card-body px-6">
-    <div class="flex">
+    <div class="flex items-center">
       <div class="avatar">
         <div
           class="ring-primary ring-offset-base-100 w-8 rounded-full ring-3 ring-offset-2"
@@ -13,88 +13,77 @@
           />
         </div>
       </div>
-      <p class="ml-2">Users two names</p>
+      <p class="ml-4 text-lg">{{ project.displayName }}</p>
     </div>
     <h2 class="card-title mt-2 mb-0">{{ project.title }}</h2>
-    <p>{{ project.description }}</p>
+    <p>{{ description }}</p>
   </div>
   <figure class="px-6 pb-3">
     <img [src]="project.image" alt="Project Image" class="rounded-xl" />
   </figure>
   <div class="card-actions p-6">
-    <div class="rating">
-      <div class="mask mask-star-2 bg-primary" aria-label="1 star"></div>
-      <div class="mask mask-star-2 bg-primary" aria-label="2 star"></div>
+    <div class="rating rating-lg rating-half mb-3">
+      <input type="radio" name="rating-11" class="rating-hidden" />
       <div
-        class="mask mask-star-2 bg-primary"
-        aria-label="3 star"
-        aria-current="true"
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="0.5 star"
+        [attr.aria-current]="avarageRating === 0.5 ? 'true' : 'false'"
       ></div>
-      <div class="mask mask-star-2 bg-primary" aria-label="4 star"></div>
-      <div class="mask mask-star-2 bg-primary" aria-label="5 star"></div>
-    </div>
-
-    <!--     <button class="btn btn-outline btn-default w-[48%]">
-      <span class="material-symbols-outlined">rate_review</span>Feedback
-    </button> -->
-  </div>
-</div>
-
-<dialog #vote_card_modal id="vote_card_modal" class="modal">
-  <div class="modal-box">
-    <h1 class="font-semibold mb-2">title</h1>
-    <p class="text-sm mb-2">description</p>
-    @for(tag of project.tags; track tag) {
-    <span class="badge badge-primary p-3 mr-3 mb-2">{{ tag }}</span>
-    }
-    <img [src]="project.image" class="rounded-lg mb-2 mx-auto" alt="" />
-    <div class="container flex justify-between mt-5">
-      <div class="rating rating-sm mt-1">
-        <input type="radio" name="rating-9" class="rating-hidden" />
-        <input
-          type="radio"
-          name="rating-9"
-          class="mask mask-star-2 bg-green-700"
-        />
-        <input
-          type="radio"
-          name="rating-9"
-          class="mask mask-star-2 bg-green-700"
-        />
-        <input
-          type="radio"
-          name="rating-9"
-          class="mask mask-star-2 bg-green-700"
-          checked
-        />
-        <input
-          type="radio"
-          name="rating-9"
-          class="mask mask-star-2 bg-green-700"
-        />
-        <input
-          type="radio"
-          name="rating-9"
-          class="mask mask-star-2 bg-green-700"
-        />
-      </div>
-      <div>
-        <button class="badge badge-outline p-3 mr-3">
-          Demo Url
-          <span class="material-symbols-outlined ml-1 text-sm">
-            open_in_new
-          </span>
-        </button>
-        <button class="badge badge-outline p-3">
-          Repository Url
-          <span class="material-symbols-outlined ml-1 text-sm">
-            open_in_new
-          </span>
-        </button>
-      </div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="1 star"
+        [attr.aria-current]="avarageRating === 1 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="1.5 star"
+        [attr.aria-current]="avarageRating === 1.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="2 star"
+        [attr.aria-current]="avarageRating === 2 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="2.5 star"
+        [attr.aria-current]="avarageRating === 2.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="3 star"
+        [attr.aria-current]="avarageRating === 3 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="3.5 star"
+        [attr.aria-current]="avarageRating === 3.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="4 star"
+        [attr.aria-current]="avarageRating === 4 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="4.5 star"
+        [attr.aria-current]="avarageRating === 4.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="5 star"
+        [attr.aria-current]="avarageRating === 5 ? 'true' : 'false'"
+      ></div>
     </div>
   </div>
-  <form method="dialog" class="modal-backdrop">
-    <button>close</button>
-  </form>
-</dialog>
+</a>

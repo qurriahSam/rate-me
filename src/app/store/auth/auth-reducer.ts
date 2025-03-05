@@ -4,7 +4,7 @@ import { AuthAction } from './actions';
 
 const initialState: UserStateInterface = {
   isLoading: false,
-  loggedUser: { email: null, id: null },
+  loggedUser: { email: null, id: null, username: null },
   error: null,
 };
 
@@ -14,7 +14,11 @@ export const authReducer = createReducer(
   on(AuthAction.registrationSuccess, (_state, action) => ({
     ..._state,
     isLoading: false,
-    loggedUser: { email: action.email, id: action.id },
+    loggedUser: {
+      email: action.email,
+      id: action.id,
+      username: action.username,
+    },
     error: null,
   })),
   on(AuthAction.loginUser, (_state) => ({
@@ -25,7 +29,7 @@ export const authReducer = createReducer(
     ..._state,
     error: action.error,
     isLoading: false,
-    loggedUser: { email: null, id: null },
+    loggedUser: { email: null, id: null, username: null },
   })),
   on(AuthAction.logoutUser, (_state, action) => ({
     ..._state,

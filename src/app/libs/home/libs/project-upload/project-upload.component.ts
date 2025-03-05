@@ -29,7 +29,8 @@ export class ProjectUploadComponent implements OnInit {
   demoUrlWatcher: Subject<string>;
   page: 'form' | 'links' | 'preview' = 'form';
   loading = false;
-  userId?: string | null;
+  userId: string | null = null;
+  displayName: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -50,9 +51,9 @@ export class ProjectUploadComponent implements OnInit {
     });
 
     this.demoUrlWatcher = new Subject<string>();
-    this.store
-      .select(registerUserSelector)
-      .subscribe((user) => (this.userId = user.id));
+    this.store.select(registerUserSelector).subscribe((user) => {
+      (this.userId = user.id), (this.displayName = user.username);
+    });
   }
 
   ngOnInit(): void {
@@ -100,7 +101,7 @@ export class ProjectUploadComponent implements OnInit {
   onSubmit() {
     if (this.projectForm.valid && this.projectLinks.valid) {
       // const imageUrl = await this.imageUrl.getUrl(this.imageBlob);
-      if (this.userId && this.screenshot) {
+      if (this.userId && this.screenshot && this.displayName) {
         this.store.dispatch(
           ProjectAction.uploadProject({
             title: this.projectForm.value.title,
@@ -110,6 +111,8 @@ export class ProjectUploadComponent implements OnInit {
             repoUrl: this.projectLinks.value.repoUrl,
             image: this.screenshot,
             userId: this.userId,
+            ratings: [],
+            displayName: this.displayName,
           })
         );
         this.projectForm.reset();

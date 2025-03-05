@@ -13,8 +13,17 @@ export const projectsReducer = createReducer(
   initialState,
   on(ProjectAction.uploadProject, (_state) => ({ ..._state, isLoading: true })),
   on(ProjectAction.uploadProjectSuccess, (_state, props) => {
-    const { image, repoUrl, title, description, tags, demoUrl, _id, userId } =
-      props;
+    const {
+      image,
+      repoUrl,
+      title,
+      description,
+      tags,
+      demoUrl,
+      _id,
+      userId,
+      displayName,
+    } = props;
     const nuProject = {
       _id: _id,
       title: title,
@@ -24,6 +33,8 @@ export const projectsReducer = createReducer(
       repoUrl: repoUrl,
       image: image,
       userId: userId,
+      ratings: [],
+      displayName: displayName,
     };
     const modUserProjects = [..._state.userProjects, nuProject];
     const modProjects = [..._state.projects, nuProject];

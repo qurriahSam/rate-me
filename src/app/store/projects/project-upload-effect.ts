@@ -18,6 +18,7 @@ export class ProjectUploadEffect {
       ofType('[Projects] Upload Project'),
       mergeMap((project: Project) =>
         this.projectService.addProject(project).pipe(
+          tap(console.log),
           map((project) =>
             ProjectAction.uploadProjectSuccess({
               _id: project._id,
@@ -28,6 +29,8 @@ export class ProjectUploadEffect {
               repoUrl: project.repoUrl,
               image: project.image,
               userId: project.userId,
+              ratings: project.ratings,
+              displayName: project.displayName,
             })
           ),
           catchError((error) => {

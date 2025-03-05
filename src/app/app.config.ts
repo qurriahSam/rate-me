@@ -30,7 +30,11 @@ import { LogoutEffect } from './store/auth/logout-effect';
 import { ProjectUploadEffect } from './store/projects/project-upload-effect';
 import { projectsReducer } from './store/projects/projects-reducer';
 import { GetAllProjectsEffect } from './store/projects/get-all-projects-effect';
+import { viewProjectReducer } from './store/view-project/view-project-reducer';
+import { GetProjectEffect } from './store/view-project/get-project-effect';
+import { UpdateProjectEffect } from './store/view-project/update-project-effect';
 
+const localIP = import.meta.env['NG_APP_LOCAL_IP'];
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -38,38 +42,44 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => {
       const auth = getAuth();
       if (environment.useEmulators) {
-        connectAuthEmulator(auth, 'http://localhost:9099');
+        connectAuthEmulator(auth, `http://${localIP}:9099`);
       }
       return auth;
     }),
     provideFirestore(() => {
       const firestore = getFirestore();
       if (!environment.production) {
-        connectFirestoreEmulator(firestore, 'localhost', 8080);
+        connectFirestoreEmulator(firestore, `${localIP}`, 8080);
       }
       return firestore;
     }),
     provideDatabase(() => {
       const db = getDatabase();
       if (!environment.production) {
-        connectDatabaseEmulator(db, '127.0.0.1', 9000);
+        connectDatabaseEmulator(db, `${localIP}`, 9000);
       }
       return db;
     }),
     provideStorage(() => {
       const cloudStorage = getStorage();
       if (!environment.production) {
-        connectStorageEmulator(cloudStorage, '127.0.0.1', 9199);
+        connectStorageEmulator(cloudStorage, `${localIP}`, 9199);
       }
       return cloudStorage;
     }),
-    provideStore({ auth: authReducer, projects: projectsReducer }),
+    provideStore({
+      auth: authReducer,
+      projects: projectsReducer,
+      viewProject: viewProjectReducer,
+    }),
     provideEffects([
       RegisterEffect,
       LoginEffect,
       LogoutEffect,
       ProjectUploadEffect,
       GetAllProjectsEffect,
+      GetProjectEffect,
+      UpdateProjectEffect,
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],

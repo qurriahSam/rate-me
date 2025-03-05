@@ -1,0 +1,187 @@
+<app-nav />
+<section class="bg-base-200 pt-7">
+  @if(project) {
+
+  <div class="container mx-auto p-6 md:max-w-5xl md:p-10 bg-base-100 border">
+    <div class="">
+      <h2 class="text-2xl font-bold mb-2">{{ project.title }}</h2>
+      <div class="divider"></div>
+
+      <p class="mb-2">{{ project.description }}</p>
+      <p class="mb-2">
+        <span class="font-semibold">By:</span> {{ project.displayName }}
+      </p>
+      <div class="flex gap-2">
+        @if(project.tags.length > 0) { @for(tag of project.tags; track tag) {
+        <div class="badge badge-primary">{{ tag }}</div>
+        } }
+      </div>
+      <div class="my-5">
+        <img [src]="project.image" alt="Product Image" class="rounded-xl" />
+      </div>
+    </div>
+    <div class="rating rating-lg rating-half mb-3">
+      <input type="radio" name="rating-11" class="rating-hidden" />
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="0.5 star"
+        [attr.aria-current]="averageRating === 0.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="1 star"
+        [attr.aria-current]="averageRating === 1 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="1.5 star"
+        [attr.aria-current]="averageRating === 1.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="2 star"
+        [attr.aria-current]="averageRating === 2 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="2.5 star"
+        [attr.aria-current]="averageRating === 2.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="3 star"
+        [attr.aria-current]="averageRating === 3 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="3.5 star"
+        [attr.aria-current]="averageRating === 3.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="4 star"
+        [attr.aria-current]="averageRating === 4 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-1 bg-primary"
+        aria-label="4.5 star"
+        [attr.aria-current]="averageRating === 4.5 ? 'true' : 'false'"
+      ></div>
+      <div
+        name="project-rating"
+        class="mask mask-star-2 mask-half-2 bg-primary"
+        aria-label="5 star"
+        [attr.aria-current]="averageRating === 5 ? 'true' : 'false'"
+      ></div>
+    </div>
+    <div class="">
+      <div class="flex gap-4">
+        <a
+          class="btn btn-soft"
+          href="{{ project.demoUrl }}"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Demo Url
+          <span class="material-symbols-outlined text-xs"> open_in_new </span>
+        </a>
+        <a
+          class="btn btn-soft"
+          href="{{ project.repoUrl }}"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Repository Url
+          <span class="material-symbols-outlined ml-1 text-sm">
+            open_in_new
+          </span>
+        </a>
+        <button class="btn btn-soft" (click)="rateProject.showModal()">
+          Rate
+          <span class="material-symbols-outlined ml-1 text-sm"> kid_star </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <dialog #rateProject class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          ✕
+        </button>
+      </form>
+      <h3 class="text-xl font-bold text-center">Rate</h3>
+      <div class="divider"></div>
+      <form #rateForm="ngForm" (ngSubmit)="submitForm(rateForm)">
+        <p [hidden]="!isRated" class="text-center">
+          You have rated this project
+        </p>
+        <div class="rating rating-xl flex justify-center gap-2 my-5">
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="1 star"
+            value="1"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="2 star"
+            value="2"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="3 star"
+            value="3"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="4 star"
+            value="4"
+            [(ngModel)]="rating"
+            required
+          />
+          <input
+            type="radio"
+            name="rating-2"
+            class="mask mask-star-2 bg-primary"
+            aria-label="5 star"
+            value="5"
+            [(ngModel)]="rating"
+            required
+          />
+        </div>
+        <div class="flex justify-end">
+          @if(isLoading$ | async) {
+          <button class="btn btn-primary" disabled>Loading...</button>
+          } @else {
+          <button class="btn btn-primary" [disabled]="isRated">Submit</button>
+          }
+        </div>
+      </form>
+    </div>
+  </dialog>
+  }
+</section>

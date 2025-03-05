@@ -19,10 +19,10 @@ import { User } from '../../../models/loggedUser';
 import { LocalStorageService } from '../../../services/localStorageService/local-storage.service';
 
 @Component({
-    selector: 'app-login',
-    imports: [RouterLink, ReactiveFormsModule, CommonModule],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.css'
+  selector: 'app-login',
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -49,6 +49,9 @@ export class LoginComponent implements OnInit {
         this.localStorage.setItem('id', user.id);
         if (user.email) {
           this.localStorage.setItem('email', user.email);
+        }
+        if (user.username) {
+          this.localStorage.setItem('username', user.username);
         }
         this.router.navigate(['/dashboard']);
       }
