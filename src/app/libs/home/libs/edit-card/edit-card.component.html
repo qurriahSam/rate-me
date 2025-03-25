@@ -6,7 +6,7 @@
       <h2 class="card-title mb-0">{{ project.title }}</h2>
       <button
         class="btn btn-circle btn-ghost"
-        (click)="deleteProject.showModal()"
+        (click)="deleteProjectModal.showModal()"
       >
         <span
           class="material-symbols-outlined text-[20px]! text-base-content/80"
@@ -87,7 +87,7 @@
     </div>
   </div>
 </div>
-<dialog #deleteProject class="modal">
+<dialog #deleteProjectModal class="modal">
   <div class="modal-box">
     <h3 class="text-lg font-bold">Delete Project</h3>
     <p class="py-4">
@@ -95,7 +95,9 @@
     </p>
     <div class="modal-action">
       <form method="dialog">
-        <button class="btn btn-error">Delete</button>
+        <button class="btn btn-error mr-4" (click)="deleteProject()">
+          Delete
+        </button>
         <button class="btn btn-primary">Close</button>
       </form>
     </div>

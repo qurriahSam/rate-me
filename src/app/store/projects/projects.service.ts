@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   Firestore,
   getDoc,
@@ -88,6 +89,17 @@ export class ProjectService {
       tap(console.log),
       catchError((error) => {
         console.error('Error updating project:', error);
+        throw error;
+      })
+    );
+  }
+
+  deleteProject(project: Project) {
+    return from(deleteDoc(doc(this.firestore, `projects/${project._id}`))).pipe(
+      map(() => project),
+      tap(console.log),
+      catchError((error) => {
+        console.error('Error deleting project:', error);
         throw error;
       })
     );

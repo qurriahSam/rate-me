@@ -62,5 +62,28 @@ export const projectsReducer = createReducer(
     ..._state,
     userProjects: action.projects,
     isLoading: false,
+  })),
+  on(ProjectAction.deleteProject, (_state) => ({
+    ..._state,
+    isLoading: true,
+  })),
+  on(ProjectAction.deleteProjectSuccess, (_state, action) => {
+    const modProjects = _state.projects.filter(
+      (project) => project._id !== action.project._id
+    );
+    const modUserProjects = _state.userProjects.filter(
+      (project) => project._id !== action.project._id
+    );
+    return {
+      ..._state,
+      projects: modProjects,
+      userProjects: modUserProjects,
+      isLoading: false,
+    };
+  }),
+  on(ProjectAction.projectError, (_state, action) => ({
+    ..._state,
+    error: action.error,
+    isLoading: false,
   }))
 );
