@@ -9,9 +9,22 @@
   <div *ngIf="user.id" class="flex flex-none gap-2">
     <div class="">
       <ul class="menu menu-horizontal px-1">
-        <li><a routerLink="/dashboard/all-projects">all projects</a></li>
         <li>
-          <a routerLink="/dashboard/my-projects">my projects</a>
+          <a
+            routerLink="/dashboard/all-projects"
+            routerLinkActive="text-primary"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >all projects</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/dashboard/my-projects"
+            routerLinkActive="text-primary"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            my projects
+          </a>
         </li>
       </ul>
     </div>
