@@ -58,6 +58,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  setDemoCredentials() {
+    this.loginForm.setValue({
+      email: 'user.demo@demo.com',
+      password: '123456',
+    });
+    console.log(this.loginForm.value);
+  }
+
   handleSubmit() {
     if (this.loginForm.valid) {
       this.store.dispatch(
